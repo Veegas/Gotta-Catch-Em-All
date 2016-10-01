@@ -1,46 +1,56 @@
 package abstracts;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 //represents any abstract Search Problem
-public abstract class SearchProblem {
-	private ArrayList<State> stateSpace;
-	private State initialState;
-	private ArrayList<Operation> operations;
-	
-	//Constructor
-	public SearchProblem(ArrayList<State> stateSpace, State initialState, ArrayList<Operation> operations) {
+public abstract class SearchProblem<NodeType, StateType> {
+	private ArrayList<StateType> stateSpace;
+	private StateType initialState;
+	private ArrayList<Operation <NodeType>> operations;
+
+	// Constructor
+	public SearchProblem(ArrayList<StateType> stateSpace, StateType initialState,
+			ArrayList<Operation<NodeType>> operations) {
 		this.stateSpace = stateSpace;
 		this.initialState = initialState;
 		this.operations = operations;
 	}
 	
-	//Abstract methods, any subclasses should implement.
-	public abstract boolean goalTest();
+	public SearchProblem() {
+	  this.stateSpace = new ArrayList<StateType>();  
+	}
+
+	// Abstract methods, any subclasses should implement.
+	public abstract boolean goalTest(SearchNode node);
+
 	public abstract int pathCost();
-	
-	//Setters and Getters
-	public ArrayList<State> getStateSpace() {
+
+	// Setters and Getters
+	public ArrayList<StateType> getStateSpace() {
 		return stateSpace;
 	}
-	public void setStateSpace(ArrayList<State> stateSpace) {
+
+	public void setStateSpace(ArrayList<StateType> stateSpace) {
 		this.stateSpace.clear();
 		this.stateSpace.addAll(stateSpace);
 	}
-	public State getInitialState() {
+
+	public StateType getInitialState() {
 		return initialState;
 	}
-	public void setInitialState(State initialState) {
+
+	public void setInitialState(StateType initialState) {
 		this.initialState = initialState;
 	}
-	public ArrayList<Operation> getOperations() {
-		return operations;
+
+	public ArrayList<Operation<NodeType>> getOperations() {
+	    return operations;
 	}
-	public void setOperations(ArrayList<Operation> operations) {
-		this.operations.clear();
-		this.operations.addAll(operations);
+
+	public void setOperations(ArrayList<Operation<NodeType>> operations) {
+	    this.operations = operations;
 	}
-	
-	
-	
-} 
+
+
+}

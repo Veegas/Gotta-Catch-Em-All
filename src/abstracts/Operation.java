@@ -1,6 +1,6 @@
 package abstracts;
 
 //represents any abstract operation in a search problem
-public abstract class Operation {
-	
+public interface Operation<T> {
+	public abstract T apply(T node);
 }

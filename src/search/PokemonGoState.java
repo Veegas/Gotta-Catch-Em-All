@@ -7,14 +7,18 @@ import abstracts.State;
 import gameObjects.Pokemon;
 
 //represents our agent's state in the Gotta Catch'em all instance
-public class AgentState extends State {
+public class PokemonGoState extends State {
+	public PokemonGoState() {
+	super();
+    }
+
 	private Position currentPosition;
 	private int stepsMoved;
 	private ArrayList<Pokemon> pokemonsLeft;
 	private Orientation orientation;
 	
 	//Constructor
-	public AgentState(Position currentPosition, int stepsMoved, ArrayList<Pokemon> pokemonsLeft,
+	public PokemonGoState(Position currentPosition, int stepsMoved, ArrayList<Pokemon> pokemonsLeft,
 			Orientation orientation) {
 		super();
 		this.currentPosition = currentPosition;
@@ -56,4 +60,5 @@ public class AgentState extends State {
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
+	
 }
