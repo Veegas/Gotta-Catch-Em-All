@@ -10,8 +10,8 @@ public class BreadthFirst implements QueuingFunction<SearchNode> {
     @Override
     public ArrayList<SearchNode> enqueue(SearchNode N,
 	    ArrayList<SearchNode> queue) {
-	// TODO Auto-generated method stub
-	return null;
+	queue.add(N);
+	return queue;
     }
 
 }

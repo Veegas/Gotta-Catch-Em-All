@@ -2,20 +2,27 @@ package search;
 
 import java.util.ArrayList;
 
+import abstracts.Environment;
 import abstracts.State;
 
 import gameObjects.Pokemon;
+import mazeGenerator.Maze;
 
 //represents our agent's state in the Gotta Catch'em all instance
 public class PokemonGoState extends State {
 	public PokemonGoState() {
 	super();
+	this.currentPosition = new Position(0, 0);
+	this.orientation = Orientation.UP;
+	this.stepsMoved = 0;
+	this.pokemonsLeft = new ArrayList<Pokemon>();
     }
 
 	private Position currentPosition;
 	private int stepsMoved;
 	private ArrayList<Pokemon> pokemonsLeft;
 	private Orientation orientation;
+	
 	
 	//Constructor
 	public PokemonGoState(Position currentPosition, int stepsMoved, ArrayList<Pokemon> pokemonsLeft,
@@ -25,6 +32,13 @@ public class PokemonGoState extends State {
 		this.stepsMoved = stepsMoved;
 		this.pokemonsLeft = pokemonsLeft;
 		this.orientation = orientation;
+	}
+	
+	public PokemonGoState(PokemonGoState oldState) {
+	    this.currentPosition = oldState.currentPosition;
+	    this.orientation = oldState.orientation;
+	    this.stepsMoved = oldState.stepsMoved;
+	    this.pokemonsLeft = oldState.pokemonsLeft;
 	}
 
 	//Setters and Getters
@@ -61,16 +75,21 @@ public class PokemonGoState extends State {
 		this.orientation = orientation;
 	}
 	
-	public void moveForward() {
-	    
+	public PokemonGoState moveForward(Environment environment) {
+	    PokemonGoEnvironment ourEnvironment = (PokemonGoEnvironment) environment;
+	    Maze ourMaze = ourEnvironment.maze;
+//	    TODO: Check for logic in maze;
+	    PokemonGoState newState = new PokemonGoState(this);
+	    newState.stepsMoved++;
+	    return newState;
 	}
 	
-	public void rotateLeft() {
-	    
+	public PokemonGoState rotateLeft() {
+	    return this;
 	}
 	
-	public void rotateRight() {
-	    
+	public PokemonGoState rotateRight() {
+	    return this;
 	}
 	
 }

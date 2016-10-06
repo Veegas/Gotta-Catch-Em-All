@@ -30,13 +30,13 @@ public class PokemonGoSearchProblem extends SearchProblem {
 
 	
 	Operation<PokemonGoSearchNode> moveForward = new MoveForwardOperation();
-	Operation<PokemonGoSearchNode> rotateRight = new RotateRightOperation();
-	Operation<PokemonGoSearchNode> rotateLeft = new RotateLeftOperation();
+//	Operation<PokemonGoSearchNode> rotateRight = new RotateRightOperation();
+//	Operation<PokemonGoSearchNode> rotateLeft = new RotateLeftOperation();
 		
 
 	operations.add(moveForward);
-	operations.add(rotateRight);
-	operations.add(rotateLeft);
+//	operations.add(rotateRight);
+//	operations.add(rotateLeft);
 	this.setOperations(operations);
     }
 

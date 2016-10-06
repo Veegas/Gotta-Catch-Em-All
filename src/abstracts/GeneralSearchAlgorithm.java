@@ -3,8 +3,14 @@ package abstracts;
 import java.util.ArrayList;
 import java.util.function.Function;
 
-public abstract class GeneralSearchAlgorithm {
+import search.PokemonGoState;
 
+public abstract class GeneralSearchAlgorithm {
+    Environment enviroment;
+    
+    public GeneralSearchAlgorithm(Environment enviroment) {
+	this.enviroment = enviroment;
+    }
     public SearchNode GeneralSearch(SearchProblem problem,
 	    QueuingFunction<SearchNode> queuingFunction) {
 
@@ -25,8 +31,7 @@ public abstract class GeneralSearchAlgorithm {
 		return currentNode;
 	    }
 
-	    ArrayList<? extends SearchNode> expandedNodes = GeneralSearchAlgorithm
-		    .expandNode(currentNode, problem.getOperations());
+	    ArrayList<? extends SearchNode> expandedNodes = this.expandNode(currentNode, problem.getOperations());
 
 	    for (SearchNode toBeAddedNode : expandedNodes) {
 		nodes = queuingFunction.enqueue(toBeAddedNode, nodes);
@@ -35,15 +40,19 @@ public abstract class GeneralSearchAlgorithm {
 
     }
 
-    public static ArrayList<? extends SearchNode> expandNode(SearchNode node,
+    public ArrayList<? extends SearchNode> expandNode(SearchNode node,
 	    ArrayList<Operation<? extends  SearchNode>> operations) {
 	ArrayList<SearchNode> expandedNodes = new ArrayList<SearchNode>();
 
 	for (Operation<? extends SearchNode> operation : operations) {
 	    System.out.println("expandNode");
-	    expandedNodes.add(operation.apply(node));
+	    expandedNodes.add(operation.apply(node, this.enviroment));
 	}
-
+	
+	for(SearchNode expanded : expandedNodes) {
+	    PokemonGoState state = (PokemonGoState) expanded.getState();
+	    System.out.print(state.getStepsMoved() + ", ");
+	}
 	return expandedNodes;
     }
 

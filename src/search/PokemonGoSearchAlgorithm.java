@@ -8,8 +8,8 @@ import abstracts.State;
 
 public class PokemonGoSearchAlgorithm extends GeneralSearchAlgorithm {
 
-    public PokemonGoSearchAlgorithm() {
-	super();
+    public PokemonGoSearchAlgorithm(PokemonGoEnvironment enviroment) {
+	super(enviroment);
 	// TODO Auto-generated constructor stub
     }
 
