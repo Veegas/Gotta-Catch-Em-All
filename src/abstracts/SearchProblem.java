@@ -4,51 +4,51 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 //represents any abstract Search Problem
-public abstract class SearchProblem<NodeType, StateType> {
-	private ArrayList<StateType> stateSpace;
-	private StateType initialState;
-	private ArrayList<Operation <NodeType>> operations;
+public abstract class SearchProblem{
+	private ArrayList<State> stateSpace;
+	private State initialState;
+	private ArrayList<Operation<? extends SearchNode>> operations;
 
 	// Constructor
-	public SearchProblem(ArrayList<StateType> stateSpace, StateType initialState,
-			ArrayList<Operation<NodeType>> operations) {
+	public SearchProblem(ArrayList<State> stateSpace, State initialState,
+			ArrayList<Operation<? extends SearchNode>> operations) {
 		this.stateSpace = stateSpace;
 		this.initialState = initialState;
 		this.operations = operations;
 	}
 	
 	public SearchProblem() {
-	  this.stateSpace = new ArrayList<StateType>();  
+	  this.stateSpace = new ArrayList<State>();  
 	}
 
 	// Abstract methods, any subclasses should implement.
-	public abstract boolean goalTest(SearchNode node);
+	public abstract boolean goalTest(State state);
 
 	public abstract int pathCost();
 
 	// Setters and Getters
-	public ArrayList<StateType> getStateSpace() {
+	public ArrayList<State> getStateSpace() {
 		return stateSpace;
 	}
 
-	public void setStateSpace(ArrayList<StateType> stateSpace) {
+	public void setStateSpace(ArrayList<? extends State> stateSpace) {
 		this.stateSpace.clear();
 		this.stateSpace.addAll(stateSpace);
 	}
 
-	public StateType getInitialState() {
+	public State getInitialState() {
 		return initialState;
 	}
 
-	public void setInitialState(StateType initialState) {
+	public void setInitialState(State initialState) {
 		this.initialState = initialState;
 	}
 
-	public ArrayList<Operation<NodeType>> getOperations() {
+	public ArrayList<Operation<? extends SearchNode>> getOperations() {
 	    return operations;
 	}
 
-	public void setOperations(ArrayList<Operation<NodeType>> operations) {
+	public void setOperations(ArrayList<Operation<? extends SearchNode>> operations) {
 	    this.operations = operations;
 	}
 

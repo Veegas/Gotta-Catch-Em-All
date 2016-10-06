@@ -61,4 +61,16 @@ public class PokemonGoState extends State {
 		this.orientation = orientation;
 	}
 	
+	public void moveForward() {
+	    
+	}
+	
+	public void rotateLeft() {
+	    
+	}
+	
+	public void rotateRight() {
+	    
+	}
+	
 }

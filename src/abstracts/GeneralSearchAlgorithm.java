@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public abstract class GeneralSearchAlgorithm {
 
-    public static SearchNode GeneralSearch(SearchProblem<SearchNode, State> problem,
+    public SearchNode GeneralSearch(SearchProblem problem,
 	    QueuingFunction<SearchNode> queuingFunction) {
 
 	ArrayList<SearchNode> nodes = new ArrayList<SearchNode>();
@@ -14,17 +14,18 @@ public abstract class GeneralSearchAlgorithm {
 
 	while (true) {
 
+
 	    if (nodes.isEmpty()) {
 		return null;
 	    }
-
+	    
 	    SearchNode currentNode = nodes.remove(0);
-
-	    if (problem.goalTest(currentNode)) {
+	    
+	    if (problem.goalTest(currentNode.getState())) {
 		return currentNode;
 	    }
 
-	    ArrayList<SearchNode> expandedNodes = GeneralSearchAlgorithm
+	    ArrayList<? extends SearchNode> expandedNodes = GeneralSearchAlgorithm
 		    .expandNode(currentNode, problem.getOperations());
 
 	    for (SearchNode toBeAddedNode : expandedNodes) {
@@ -34,11 +35,12 @@ public abstract class GeneralSearchAlgorithm {
 
     }
 
-    public static ArrayList<SearchNode> expandNode(SearchNode node,
-	    ArrayList<Operation<SearchNode>> operations) {
+    public static ArrayList<? extends SearchNode> expandNode(SearchNode node,
+	    ArrayList<Operation<? extends  SearchNode>> operations) {
 	ArrayList<SearchNode> expandedNodes = new ArrayList<SearchNode>();
 
-	for (Operation<SearchNode> operation : operations) {
+	for (Operation<? extends SearchNode> operation : operations) {
+	    System.out.println("expandNode");
 	    expandedNodes.add(operation.apply(node));
 	}
 

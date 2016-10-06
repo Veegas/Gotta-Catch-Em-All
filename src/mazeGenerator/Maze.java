@@ -6,6 +6,7 @@ import java.util.Random;
 public class Maze {
 	private Cell[][] maze;
 	ArrayList<Cell> frontiers = new ArrayList<Cell>();
+	Cell Start;
 
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
@@ -19,7 +20,7 @@ public class Maze {
 				maze[i][j] = new Cell(getRandomBoolean(), i, j, null);
 			}
 		}
-		Cell Start = new Cell(getRandomBoolean(), random.ints(0, x).findFirst().getAsInt(),
+		Start = new Cell(getRandomBoolean(), random.ints(0, x).findFirst().getAsInt(),
 				random.ints(0, y).findFirst().getAsInt(), null);
 		maze[Start.getX()][Start.getY()] = Start;
 		Start.setStart(true);
@@ -132,10 +133,10 @@ public class Maze {
 
 	public void genMaze() {
 		Random random = new Random();
-		int x = random.ints(1, 101).findFirst().getAsInt();
-		int y = random.ints(1, 101).findFirst().getAsInt();
+		int x = random.ints(1, 10).findFirst().getAsInt();
+		int y = random.ints(1, 10).findFirst().getAsInt();
 		System.out.println(x + " " + y + " ");
-		generateMaze(x, y);
+		generateMaze(10, 10);
 	}
 
 	public static void main(String[] args) {

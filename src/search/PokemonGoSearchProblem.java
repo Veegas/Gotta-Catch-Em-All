@@ -11,20 +11,22 @@ import abstracts.Operation;
 import abstracts.SearchNode;
 import abstracts.SearchProblem;
 import abstracts.State;
+import mazeGenerator.Maze;
 
-public class PokemonGoSearchProblem extends SearchProblem<PokemonGoSearchNode, PokemonGoState>  {
+public class PokemonGoSearchProblem extends SearchProblem {
     
-//    private Operation<Object> operations;
+    
+    private Maze maze;
 
-    public PokemonGoSearchProblem() {
+    public PokemonGoSearchProblem(Maze maze) {
 	super();
-
+	this.maze = maze;
 	PokemonGoState initialState = new PokemonGoState();
 	ArrayList<PokemonGoState> stateSpace = new ArrayList<PokemonGoState>();
 	this.setInitialState(initialState);
 	this.setStateSpace(stateSpace);
 
-	ArrayList<Operation<PokemonGoSearchNode>> operations = new ArrayList<Operation<PokemonGoSearchNode>>();
+	ArrayList<Operation<? extends SearchNode>> operations = new ArrayList<Operation<? extends SearchNode>>();
 
 	
 	Operation<PokemonGoSearchNode> moveForward = new MoveForwardOperation();
@@ -40,8 +42,7 @@ public class PokemonGoSearchProblem extends SearchProblem<PokemonGoSearchNode, P
 
     
 
-    @Override
-    public boolean goalTest(SearchNode node) {
+    public boolean goalTest(PokemonGoState state) {
 	// TODO Auto-generated method stub
 	return false;
     }
@@ -50,6 +51,14 @@ public class PokemonGoSearchProblem extends SearchProblem<PokemonGoSearchNode, P
     public int pathCost() {
 	// TODO Auto-generated method stub
 	return 0;
+    }
+
+
+
+    @Override
+    public boolean goalTest(State state) {
+	// TODO Auto-generated method stub
+	return false;
     }
 
 }
