@@ -29,5 +29,9 @@ public class SearchNode {
     public void setParent(SearchNode parent) {
 	this.parent = parent;
     }
+    
+    public String toString() {
+	return state.toString();
+    }
 
 }

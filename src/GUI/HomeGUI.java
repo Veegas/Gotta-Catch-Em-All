@@ -79,6 +79,8 @@ public class HomeGUI {
 		
 		// Importing image to be inserted in panel
 		ImageIcon pic = new ImageIcon("/Users/farrahabulkhair/Documents/pokemonAI.png");
+		//ImageIcon pic = new ImageIcon("pokemonAI.png");
+		
 		
 		// Creating label to add image on
 		JLabel lblTitle = new JLabel(pic);

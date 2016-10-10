@@ -14,11 +14,11 @@ public class PokemonGoSearchNode extends SearchNode {
     }
     
     public PokemonGoState getState() {
-	return this.getState();
+	return (PokemonGoState) super.getState();
     }
     
     public void setState(PokemonGoState state) {
-	this.setState(state);
+	super.setState(state);
     }
     
 	public PokemonGoSearchNode moveForward() {
