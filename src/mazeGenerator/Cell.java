@@ -1,8 +1,12 @@
 package mazeGenerator;
+import java.util.ArrayList;
+
+import gameObjects.*;
 
 //represents a cell in the maze, each cell is either a passage or a wall
 public class Cell {
 	private boolean hasPokemon = false;
+	private Pokemon Pokemon;
 	private boolean Visited = false;
 	private boolean blocked = true;
 	private boolean Start = false;
@@ -24,8 +28,12 @@ public class Cell {
 		return hasPokemon;
 	}
 
-	public void addPokemon(boolean p) {
+	public void addPokemon(boolean p, ArrayList<Pokemon> Pokemons) {
 		this.hasPokemon = p;
+		if(p) {
+		    this.Pokemon = new Pokemon("Pikachu",  Pokemons.size()+1);
+		    Pokemons.add(this.Pokemon);
+		}
 	}
 
 	public boolean isVisited() {

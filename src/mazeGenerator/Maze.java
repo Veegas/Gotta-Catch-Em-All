@@ -3,10 +3,13 @@ package mazeGenerator;
 import java.util.ArrayList;
 import java.util.Random;
 
+import gameObjects.Pokemon;
+
 public class Maze {
 	private Cell[][] maze;
 	ArrayList<Cell> frontiers = new ArrayList<Cell>();
 	Cell Start;
+	ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
 
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
@@ -39,8 +42,8 @@ public class Maze {
 					maze[opposite.getX()][opposite.getY()].setBlocked(false);
 
 					// generate pokemons randomly in unblocked cells
-					maze[current.getX()][current.getY()].addPokemon(getRandomBoolean());
-					maze[opposite.getX()][opposite.getY()].addPokemon(getRandomBoolean());
+					maze[current.getX()][current.getY()].addPokemon(getRandomBoolean(), PokemonsGenerated);
+					maze[opposite.getX()][opposite.getY()].addPokemon(getRandomBoolean(),  PokemonsGenerated);
 
 					// store last node in order to mark it later
 					last = opposite;
@@ -130,6 +133,17 @@ public class Maze {
 			System.out.print("_ ");
 		}
 	}
+	
+	public boolean removePokemon(Pokemon p) {
+	    for(int i = 0; i < PokemonsGenerated.size(); i++) {
+		Pokemon current = this.PokemonsGenerated.get(i);
+		if (p.getId() == current.getId()) {
+		    this.PokemonsGenerated.remove(current);
+		    return true;
+		}
+	    }
+	    return false;
+	}
 
 	public void genMaze() {
 		Random random = new Random();
@@ -143,6 +157,22 @@ public class Maze {
 		Maze maze = new Maze();
 		maze.genMaze();
 
+	}
+
+	public Cell[][] getMaze() {
+	    return maze;
+	}
+
+	public void setMaze(Cell[][] maze) {
+	    this.maze = maze;
+	}
+
+	public Cell getStart() {
+	    return Start;
+	}
+
+	public void setStart(Cell start) {
+	    Start = start;
 	}
 
 }

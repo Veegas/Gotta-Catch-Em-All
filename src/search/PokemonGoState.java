@@ -6,6 +6,7 @@ import abstracts.Environment;
 import abstracts.State;
 
 import gameObjects.Pokemon;
+import mazeGenerator.Cell;
 import mazeGenerator.Maze;
 
 //represents our agent's state in the Gotta Catch'em all instance
@@ -75,13 +76,51 @@ public class PokemonGoState extends State {
 		this.orientation = orientation;
 	}
 	
-	public PokemonGoState moveForward(Environment environment) {
+	public PokemonGoState movcelleForward(Environment environment) {
 	    PokemonGoEnvironment ourEnvironment = (PokemonGoEnvironment) environment;
 	    Maze ourMaze = ourEnvironment.maze;
 //	    TODO: Check for logic in maze;
+	    switch (this.orientation) {
+	    	case UP: 
+	    	    break;
+	    	case DOWN: 
+	    	    break;
+	    	case LEFT: 
+	    	    break;
+	    	case RIGHT: 
+	    	    break;
+	    	default: break;
+	    }
 	    PokemonGoState newState = new PokemonGoState(this);
 	    newState.stepsMoved++;
 	    return newState;
+	}
+	
+	public boolean canMoveUp(Maze maze) {
+	    if (this.currentPosition.getY() == 0 )
+		return false;
+	    
+	    Cell UpperCell = maze.getMaze()[this.currentPosition.getX()] [this.currentPosition.getY() - 1];
+	    if (UpperCell.isBlocked()) {
+		return false;
+	    }
+	    if (UpperCell.hasPokemon()) {
+		
+	    }
+	   
+	    
+	}
+	
+	public boolean canMoveRight() {
+	    
+	}
+	
+	public boolean canMoveLeft() {
+	    
+	}
+	
+	public boolean canMoveDown() {
+	    
 	}
 	
 	public PokemonGoState rotateLeft() {

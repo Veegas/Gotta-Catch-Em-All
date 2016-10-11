@@ -3,31 +3,32 @@ package gameObjects;
 import search.Position;
 
 public class Pokemon {
-	private Position position;
 	private String name;
+	private int id;
 	
 	//Constructor
-	public Pokemon(Position position, String name) {
+	public Pokemon(String name, int id) {
 		super();
-		this.position = position;
 		this.name = name;
+		this.id = id;
 	}
 
 	//Setters and Getters
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getId() {
+	    return id;
+	}
+
+	public void setId(int id) {
+	    this.id = id;
 	}
 	
 	

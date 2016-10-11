@@ -48,7 +48,7 @@ public abstract class GeneralSearchAlgorithm {
 	    System.out.println("expandNode");
 	    expandedNodes.add(operation.apply(node, this.enviroment));
 	}
-	
+//	Printing for debugging.
 	for(SearchNode expanded : expandedNodes) {
 	    PokemonGoState state = (PokemonGoState) expanded.getState();
 	    System.out.print(state.getStepsMoved() + ", ");
