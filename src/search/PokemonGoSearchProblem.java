@@ -21,7 +21,7 @@ public class PokemonGoSearchProblem extends SearchProblem {
     public PokemonGoSearchProblem(Maze maze) {
 	super();
 	this.maze = maze;
-	PokemonGoState initialState = new PokemonGoState();
+	PokemonGoState initialState = new PokemonGoState(maze.getStart().getPosition(), 0, maze.getPokemonsGenerated(), Orientation.DOWN);
 	ArrayList<PokemonGoState> stateSpace = new ArrayList<PokemonGoState>();
 	this.setInitialState(initialState);
 	this.setStateSpace(stateSpace);
@@ -29,23 +29,20 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	ArrayList<Operation<? extends SearchNode>> operations = new ArrayList<Operation<? extends SearchNode>>();
 
 	
-	Operation<PokemonGoSearchNode> moveForward = new MoveForwardOperation();
-//	Operation<PokemonGoSearchNode> rotateRight = new RotateRightOperation();
-//	Operation<PokemonGoSearchNode> rotateLeft = new RotateLeftOperation();
+	Operation<PokemonGoSearchNode> moveForward = new MoveForwardOperation(this);
+	Operation<PokemonGoSearchNode> rotateRight = new RotateRightOperation(this);
+	Operation<PokemonGoSearchNode> rotateLeft = new RotateLeftOperation(this);
 		
 
 	operations.add(moveForward);
-//	operations.add(rotateRight);
-//	operations.add(rotateLeft);
+	operations.add(rotateRight);
+	operations.add(rotateLeft);
 	this.setOperations(operations);
     }
 
     
 
-    public boolean goalTest(PokemonGoState state) {
-	// TODO Auto-generated method stub
-	return false;
-    }
+ 
 
     @Override
     public int pathCost() {
@@ -57,8 +54,35 @@ public class PokemonGoSearchProblem extends SearchProblem {
 
     @Override
     public boolean goalTest(State state) {
-	// TODO Auto-generated method stub
+	PokemonGoState pokeState = (PokemonGoState) state;
+	if (this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX() && this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
+	    return true;
+	}
 	return false;
+    }
+
+
+
+
+
+    public Maze getMaze() {
+        return maze;
+    }
+
+
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
+    }
+    
+    public PokemonGoSearchNode createNodeFromState(State newState, PokemonGoSearchNode parentNode) {
+	PokemonGoState newPokeState = (PokemonGoState) newState;
+	if (newState != null) {
+	    PokemonGoSearchNode newNode = new PokemonGoSearchNode(newPokeState, parentNode);
+	    return newNode;    
+	} else {
+	    return null;
+	}
     }
 
 }

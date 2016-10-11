@@ -35,6 +35,10 @@ public abstract class SearchProblem{
 		this.stateSpace.clear();
 		this.stateSpace.addAll(stateSpace);
 	}
+	
+	public void addToStateSpace(State state) {
+	    this.stateSpace.add(state);
+	}
 
 	public State getInitialState() {
 		return initialState;

@@ -29,6 +29,17 @@ public class Position {
 		this.y = y;
 	}
 	
+	public String toString() {
+	    return "[" + this.x + "," + this.y + "]";
+	}
+	
+	public boolean equals(Position other) {
+	    if (this.x == other.x && this.y == other.y) {
+		return true;
+	    }
+	    return false;
+	}
+	
 	
 	
 	

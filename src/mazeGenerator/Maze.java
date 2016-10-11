@@ -9,7 +9,10 @@ public class Maze {
 	private Cell[][] maze;
 	ArrayList<Cell> frontiers = new ArrayList<Cell>();
 	Cell Start;
-	ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
+	private Cell End;
+	private ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
+	private int width;
+	private int height;
 
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
@@ -17,6 +20,10 @@ public class Maze {
 
 	public void generateMaze(int x, int y) {
 		Random random = new Random();
+		this.setWidth(x);
+		this.setHeight(y);
+		
+		System.out.println(this.width + " x  " + this.height);
 		maze = new Cell[x][y];
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -57,6 +64,7 @@ public class Maze {
 				last = current;
 			}
 			if (frontiers.isEmpty()) {
+			    	this.setEnd(maze[last.getX()][last.getY()]);
 				maze[last.getX()][last.getY()].setEnd(true);
 				maze[last.getX()][last.getY()].setBlocked(false);
 			}
@@ -173,6 +181,38 @@ public class Maze {
 
 	public void setStart(Cell start) {
 	    Start = start;
+	}
+
+	public int getWidth() {
+	    return width;
+	}
+
+	public void setWidth(int width) {
+	    this.width = width;
+	}
+
+	public int getHeight() {
+	    return height;
+	}
+
+	public void setHeight(int height) {
+	    this.height = height;
+	}
+
+	public ArrayList<Pokemon> getPokemonsGenerated() {
+	    return PokemonsGenerated;
+	}
+
+	public void setPokemonsGenerated(ArrayList<Pokemon> pokemonsGenerated) {
+	    PokemonsGenerated = pokemonsGenerated;
+	}
+
+	public Cell getEnd() {
+	    return End;
+	}
+
+	public void setEnd(Cell end) {
+	    End = end;
 	}
 
 }

@@ -2,6 +2,7 @@ package mazeGenerator;
 import java.util.ArrayList;
 
 import gameObjects.*;
+import search.Position;
 
 //represents a cell in the maze, each cell is either a passage or a wall
 public class Cell {
@@ -34,6 +35,15 @@ public class Cell {
 		    this.Pokemon = new Pokemon("Pikachu",  Pokemons.size()+1);
 		    Pokemons.add(this.Pokemon);
 		}
+	}
+	
+	public Pokemon getPokemon() {
+	    return this.Pokemon;
+	}
+	
+	public void removePokemon() {
+	    this.hasPokemon = false;
+	    this.Pokemon = null;
 	}
 
 	public boolean isVisited() {
@@ -90,6 +100,10 @@ public class Cell {
 
 	public void setEnd(boolean end) {
 		End = end;
+	}
+	
+	public Position getPosition() {
+	    return new Position(this.x, this.y);
 	}
 
 }

@@ -4,9 +4,22 @@ import abstracts.Environment;
 import abstracts.Operation;
 import abstracts.SearchNode;
 import search.PokemonGoSearchNode;
+import search.PokemonGoSearchProblem;
 import search.PokemonGoState;
 
-public class RotateLeftOperation implements Operation<PokemonGoSearchNode> {
+public class RotateLeftOperation extends PokemonGoOperation implements Operation<PokemonGoSearchNode> {
+
+
+    public RotateLeftOperation() {
+	super();
+	// TODO Auto-generated constructor stub
+    }
+
+
+    public RotateLeftOperation(PokemonGoSearchProblem problem) {
+	super(problem);
+	// TODO Auto-generated constructor stub
+    }
 
 
     public PokemonGoSearchNode apply(PokemonGoSearchNode node) {
@@ -18,8 +31,13 @@ public class RotateLeftOperation implements Operation<PokemonGoSearchNode> {
     @Override
     public SearchNode apply(SearchNode node, Environment enviroment) {
 	PokemonGoState state = (PokemonGoState) node.getState();
-	PokemonGoState newState = state.rotateLeft();
-	PokemonGoSearchNode newNode = new PokemonGoSearchNode(newState);
-	return newNode;
+	PokemonGoSearchNode currentNode = (PokemonGoSearchNode) node;
+	PokemonGoState newState = state.rotateLeft(enviroment);
+	
+	if (newState == null) {
+	    return null;
+	}
+	
+	return this.getProblem().createNodeFromState(newState, currentNode);
     }
 }

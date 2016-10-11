@@ -31,6 +31,10 @@ public class Pokemon {
 	    this.id = id;
 	}
 	
+	public String toString() {
+	    return "id: " + this.id + ", name: " + this.name;
+	}
+	
 	
 	
 	

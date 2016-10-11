@@ -3,19 +3,23 @@ package abstracts;
 import java.util.ArrayList;
 import java.util.function.Function;
 
+import search.PokemonGoSearchProblem;
 import search.PokemonGoState;
 
 public abstract class GeneralSearchAlgorithm {
     Environment enviroment;
+    SearchProblem problem;
     
     public GeneralSearchAlgorithm(Environment enviroment) {
 	this.enviroment = enviroment;
     }
+    
     public SearchNode GeneralSearch(SearchProblem problem,
 	    QueuingFunction<SearchNode> queuingFunction) {
-
+	this.problem = problem;
+	PokemonGoSearchProblem pokeProblem = (PokemonGoSearchProblem) this.problem;
 	ArrayList<SearchNode> nodes = new ArrayList<SearchNode>();
-	SearchNode initialNode = new SearchNode(problem.getInitialState(), null);
+	SearchNode initialNode = pokeProblem.createNodeFromState(problem.getInitialState(), null);
 	nodes.add(initialNode);
 
 	while (true) {
@@ -27,11 +31,17 @@ public abstract class GeneralSearchAlgorithm {
 	    
 	    SearchNode currentNode = nodes.remove(0);
 	    
-	    if (problem.goalTest(currentNode.getState())) {
+	    PokemonGoState state = (PokemonGoState) currentNode.getState();
+	    if (state!= null) {
+		System.out.println("[ " + state.getCurrentPosition().getX() + ", " + state.getCurrentPosition().getY() + "] => " 
+				+ state.getOrientation()  + " :: Target => " + pokeProblem.getMaze().getEnd().getPosition());
+	   }
+	    
+	    if (this.problem.goalTest(currentNode.getState())) {
 		return currentNode;
 	    }
 
-	    ArrayList<? extends SearchNode> expandedNodes = this.expandNode(currentNode, problem.getOperations());
+	    ArrayList<? extends SearchNode> expandedNodes = this.expandNode(currentNode, this.problem.getOperations());
 
 	    for (SearchNode toBeAddedNode : expandedNodes) {
 		nodes = queuingFunction.enqueue(toBeAddedNode, nodes);
@@ -45,14 +55,16 @@ public abstract class GeneralSearchAlgorithm {
 	ArrayList<SearchNode> expandedNodes = new ArrayList<SearchNode>();
 
 	for (Operation<? extends SearchNode> operation : operations) {
-	    System.out.println("expandNode");
-	    expandedNodes.add(operation.apply(node, this.enviroment));
+	    SearchNode newNode = operation.apply(node, this.enviroment);
+	    if (newNode != null) {
+		State nodeState = newNode.getState();
+		if (!this.problem.getStateSpace().contains(nodeState)) {
+		    this.problem.addToStateSpace(nodeState);
+		}
+		expandedNodes.add(newNode);
+	    }
 	}
-//	Printing for debugging.
-	for(SearchNode expanded : expandedNodes) {
-	    PokemonGoState state = (PokemonGoState) expanded.getState();
-	    System.out.print(state.getStepsMoved() + ", ");
-	}
+
 	return expandedNodes;
     }
 
