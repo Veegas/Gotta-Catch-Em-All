@@ -38,7 +38,12 @@ public class RotateRightOperation extends PokemonGoOperation implements Operatio
 	    return null;
 	}
 	
-	return this.getProblem().createNodeFromState(newState, currentNode);    
+	SearchNode newNode = this.getProblem().createNodeFromState(newState, currentNode); 
+	newNode.setCost(1);
+	
+	
+	return newNode;
+	
     }
 
 }

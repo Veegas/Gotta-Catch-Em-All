@@ -4,8 +4,10 @@ package abstracts;
 public class SearchNode {
     private State state;
     private SearchNode parent;
+    private int cost;
 
     // Should have cost?
+
 
     // Constructor
     public SearchNode(State s, SearchNode p) {
@@ -30,8 +32,16 @@ public class SearchNode {
 	this.parent = parent;
     }
     
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+    
     public String toString() {
-	return state.toString();
+	return state.toString() + " *" + this.cost + "* ";
     }
 
 }

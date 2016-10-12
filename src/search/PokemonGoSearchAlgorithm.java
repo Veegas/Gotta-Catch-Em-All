@@ -13,10 +13,10 @@ public class PokemonGoSearchAlgorithm extends GeneralSearchAlgorithm {
 	// TODO Auto-generated constructor stub
     }
 
-    public void GeneralSearch(PokemonGoSearchProblem pokeSearch,
+    public SearchNode GeneralSearch(PokemonGoSearchProblem pokeSearch,
 	    QueuingFunction<SearchNode> bfs) {
 	SearchProblem problem = (SearchProblem) pokeSearch;
-	super.GeneralSearch(problem, bfs);
+	return super.GeneralSearch(problem, bfs);
 	
     }
     

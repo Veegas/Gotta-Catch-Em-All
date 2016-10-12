@@ -9,9 +9,11 @@ import search.PokemonGoState;
 public abstract class GeneralSearchAlgorithm {
     Environment enviroment;
     SearchProblem problem;
+    private int expandedNodesNumber;
     
     public GeneralSearchAlgorithm(Environment enviroment) {
 	this.enviroment = enviroment;
+	this.setExpandedNodesNumber(0);
     }
     
     public SearchNode GeneralSearch(SearchProblem problem,
@@ -35,8 +37,8 @@ public abstract class GeneralSearchAlgorithm {
 	    
 	    PokemonGoState state = (PokemonGoState) currentNode.getState();
 	    if (state!= null) {
-		System.out.println("[ " + state.getCurrentPosition().getX() + ", " + state.getCurrentPosition().getY() + "] => " 
-				+ state.getOrientation()  + " :: Target => " + pokeProblem.getMaze().getEnd().getPosition());
+//		System.out.println("[ " + state.getCurrentPosition().getX() + ", " + state.getCurrentPosition().getY() + "] => " 
+//				+ state.getOrientation()  + " :: Target => " + pokeProblem.getMaze().getEnd().getPosition());
 	   }
 	    
 	    if (this.problem.goalTest(currentNode.getState())) {
@@ -62,12 +64,22 @@ public abstract class GeneralSearchAlgorithm {
 		State nodeState = newNode.getState();
 		boolean undiscoveredState = this.problem.addToStateSpace(nodeState);
 		if (undiscoveredState == true) {
-		    expandedNodes.add(newNode);  
+		    expandedNodes.add(newNode); 
+		    this.setExpandedNodesNumber(
+			this.getExpandedNodesNumber() + 1);
 		}
 	    }
 	}
 
 	return expandedNodes;
+    }
+
+    public int getExpandedNodesNumber() {
+	return expandedNodesNumber;
+    }
+
+    public void setExpandedNodesNumber(int expandedNodesNumber) {
+	this.expandedNodesNumber = expandedNodesNumber;
     }
 
 }

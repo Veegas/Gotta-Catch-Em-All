@@ -28,7 +28,9 @@ public abstract class SearchProblem{
 	// Abstract methods, any subclasses should implement.
 	public abstract boolean goalTest(State state);
 
-	public abstract int pathCost();
+	public static int pathCost(SearchNode n) {
+	    return 0;
+	}
 
 	// Setters and Getters
 	public ArrayList<State> getStateSpace() {
@@ -43,7 +45,7 @@ public abstract class SearchProblem{
 	public boolean addToStateSpace(State state) {
 	    if (!this.stateSpace.contains(state)) {
 		this.stateSpace.add(state);
-		System.out.println("Added " + state + " to State Space");
+//		System.out.println("Added " + state + " to State Space");
 		return true;
 	    } else {
 		return false;

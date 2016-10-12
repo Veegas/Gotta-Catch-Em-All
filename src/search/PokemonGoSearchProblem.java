@@ -41,13 +41,18 @@ public class PokemonGoSearchProblem extends SearchProblem {
     }
 
     
-
- 
-
-    @Override
-    public int pathCost() {
-	// TODO Auto-generated method stub
-	return 0;
+    public static int pathCost(SearchNode n) {
+	PokemonGoSearchNode node = (PokemonGoSearchNode) n;
+	PokemonGoState state = node.getState();
+	
+	int cost = node.getCost();
+	
+	while(node.getParent() != null) {
+	    cost += node.getParent().getCost(); 
+	    node = (PokemonGoSearchNode) node.getParent();
+	}
+	
+	return cost;
     }
 
 
