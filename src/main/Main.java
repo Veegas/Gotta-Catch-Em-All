@@ -2,7 +2,6 @@ package main;
 
 import java.util.Random;
 import java.util.stream.IntStream;
-
 import abstracts.GeneralSearchAlgorithm;
 import abstracts.QueuingFunction;
 import abstracts.SearchNode;
@@ -32,7 +31,7 @@ public class Main {
 	QueuingFunction<SearchNode> bfs = new BreadthFirst();
 	QueuingFunction<SearchNode> dfs = new DepthFirst();
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
-	searchAlgorithm.GeneralSearch(pokeSearch, bfs);
+	searchAlgorithm.GeneralSearch(pokeSearch, dfs);
 	maze.drawMaze();
 	
 	

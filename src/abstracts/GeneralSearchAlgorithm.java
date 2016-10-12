@@ -34,10 +34,10 @@ public abstract class GeneralSearchAlgorithm {
 
 			PokemonGoState state = (PokemonGoState) currentNode.getState();
 			if (state != null) {
-				 System.out.println("[ " + state.getCurrentPosition().getX() +
+				 /*System.out.println("[ " + state.getCurrentPosition().getX() +
 				 ", " + state.getCurrentPosition().getY() + "] => " +
 				  state.getOrientation() + " :: Target => " +
-				  pokeProblem.getMaze().getEnd().getPosition());
+				  pokeProblem.getMaze().getEnd().getPosition());*/
 				 
 			}
 
