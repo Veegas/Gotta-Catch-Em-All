@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import mazeGenerator.Maze;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -13,6 +16,7 @@ import java.awt.event.ActionEvent;
 public class MazeGUI {
 
 	private JFrame frame;
+//	private static Maze maze;
 
 	/**
 	 * Launch the application.
@@ -45,6 +49,7 @@ public class MazeGUI {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
+//						maze = m;
 						MazeGUI window = new MazeGUI();
 						window.frame.setVisible(true);
 					} catch (Exception e) {
@@ -68,6 +73,11 @@ public class MazeGUI {
 		panel.setBounds(0, 0, 800, 778);
 		frame.getContentPane().add(panel);
 		panel.setLayout(new GridLayout(10, 10, 1, 1));
+		
+//		String s = Integer.toString(maze.getI());
+		
+		JButton btnNewButton = new JButton("s");
+		panel.add(btnNewButton);
 		
 		//JButton btnNewButton_1 = new JButton("New button");
 		//panel.add(btnNewButton_1, 1, 1);

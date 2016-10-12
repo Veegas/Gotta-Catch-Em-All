@@ -27,7 +27,7 @@ import javax.swing.JLabel;
 public class HomeGUI {
 
 	private JFrame frame;
-	private MazeGUI mazeGUI;
+//	private Maze maze;
 	/**
 	 * Launch the application.
 	 */
@@ -111,7 +111,9 @@ public class HomeGUI {
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 MazeGUI mazeGUI = new MazeGUI();
+//				 maze.genMaze();
 				 mazeGUI.NewScreen();
+				 
 				 frame.setVisible(false);
 			}
 		});
