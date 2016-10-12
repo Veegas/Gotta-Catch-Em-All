@@ -27,8 +27,8 @@ public class Main {
 	maze.genMaze();
 	
 	search(maze, "bfs", true);
-	search(maze, "dfs", true);
-	search(maze, "ufc", true);
+	//search(maze, "dfs", true);
+	//search(maze, "ufc", true);
 	
     }
     
@@ -39,8 +39,6 @@ public class Main {
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
 	
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
-
-	maze.drawMaze();
 
 	QueuingFunction<SearchNode> bfs = new BreadthFirst();
 	QueuingFunction<SearchNode> ufc = new UniformCost();
@@ -65,6 +63,8 @@ public class Main {
 	System.out.println("___________________________________\n");
 	System.out.println("Number Of Expanded Nodes: " + searchAlgorithm.getExpandedNodesNumber());
 	System.out.println();
+	
+	maze.drawMaze();
     }
     
     public static void printPathToRoot(SearchNode answer) {

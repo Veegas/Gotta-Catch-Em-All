@@ -40,7 +40,7 @@ public class PokemonGoState extends State {
 	    this.currentPosition = new Position(oldState.currentPosition);
 	    this.orientation = oldState.orientation;
 	    this.stepsMoved = oldState.stepsMoved;
-	    this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
+	    //this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
 	    int x = 1;
 	}
 
@@ -82,6 +82,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
+	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 //	    TODO: Check for logic in maze;
 	    Cell nextCell = null;
 	    switch (this.orientation) {
@@ -120,8 +121,8 @@ public class PokemonGoState extends State {
 	    	default: break;
 		}
 	    if (nextCell != null) {
-			if (pickUpPokemon(nextCell) == true) {
-			    newState.pokemonsLeft = this.pokemonsLeft;
+			if (pickUpPokemon(nextCell, env.maze) == true) {
+			    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 			}
 	    }
 	    newState.stepsMoved++;
@@ -177,6 +178,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
+	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 	    switch (this.orientation) {
         	    case UP: newState.orientation = Orientation.LEFT; break;
         	    case DOWN: newState.orientation = Orientation.RIGHT; break;
@@ -190,6 +192,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
+	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 	    switch (this.orientation) {
         	    case UP: newState.orientation = Orientation.RIGHT; break;
         	    case DOWN: newState.orientation = Orientation.LEFT; break;
@@ -236,11 +239,11 @@ public class PokemonGoState extends State {
 	    }	
 	}
 	
-	public boolean pickUpPokemon(Cell cell) {
+	public boolean pickUpPokemon(Cell cell, Maze maze) {
 	    Pokemon cellPokemon = cell.getPokemon();
 	    if (cellPokemon != null) {
 		cell.removePokemon();
-		pokemonsLeft.remove(cellPokemon);
+		maze.getPokemonsGenerated().remove(cellPokemon);
 		return true;
 	    }
 	    return false;

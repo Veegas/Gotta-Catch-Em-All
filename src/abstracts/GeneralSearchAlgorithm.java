@@ -30,7 +30,8 @@ public abstract class GeneralSearchAlgorithm {
 
 
 	    if (nodes.isEmpty()) {
-		return null;
+	    	System.out.println("Nodes are Empty");
+	    	return null;
 	    }
 	    
 	    SearchNode currentNode = nodes.remove(0);
@@ -42,7 +43,8 @@ public abstract class GeneralSearchAlgorithm {
 	   }
 	    
 	    if (this.problem.goalTest(currentNode.getState())) {
-		return currentNode;
+	    	System.out.println("Passed Goal Test");
+	    	return currentNode;
 	    }
 
 	    ArrayList<? extends SearchNode> expandedNodes = this.expandNode(currentNode, this.problem.getOperations());
