@@ -14,7 +14,8 @@ import abstracts.State;
 import mazeGenerator.Maze;
 
 public class PokemonGoSearchProblem extends SearchProblem {
-	private Maze maze;
+	
+    private Maze maze;
 	private int StepsToMove;
 
 	public PokemonGoSearchProblem(Maze maze, int x) {
@@ -39,11 +40,20 @@ public class PokemonGoSearchProblem extends SearchProblem {
 		this.setOperations(operations);
 	}
 
-	@Override
-	public int pathCost() {
-		// TODO Auto-generated method stub
-		return 0;
+    
+    public static int pathCost(SearchNode n) {
+	PokemonGoSearchNode node = (PokemonGoSearchNode) n;
+	PokemonGoState state = node.getState();
+	
+	int cost = node.getCost();
+	
+	while(node.getParent() != null) {
+	    cost += node.getParent().getCost(); 
+	    node = (PokemonGoSearchNode) node.getParent();
 	}
+	
+	return cost;
+    }
 
 	@Override
 	public boolean goalTest(State state) {
