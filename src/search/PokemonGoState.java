@@ -203,7 +203,7 @@ public class PokemonGoState extends State {
 	    try {
 		return env.maze.getMaze()[this.currentPosition.getX()] [this.currentPosition.getY() - 1];
 	    } catch (Exception e) {
-		System.out.println("Current Position => " + this.currentPosition);
+		//System.out.println("Current Position => " + this.currentPosition);
 		throw e;
 	    }
 	}
@@ -213,7 +213,7 @@ public class PokemonGoState extends State {
 	    }
 	
 	    catch (Exception e) {
-		System.out.println("Current Position => " + this.currentPosition);
+		//System.out.println("Current Position => " + this.currentPosition);
 		throw e;
 	    }
 	}
@@ -222,7 +222,7 @@ public class PokemonGoState extends State {
 	       return env.maze.getMaze()[this.currentPosition.getX() - 1] [this.currentPosition.getY()];  
 	   }
 	    catch (Exception e) {
-		System.out.println("Current Position => " + this.currentPosition);
+		//System.out.println("Current Position => " + this.currentPosition);
 		throw e;
 	    }
 	}
@@ -231,7 +231,7 @@ public class PokemonGoState extends State {
 		return env.maze.getMaze()[this.currentPosition.getX() + 1] [this.currentPosition.getY()];
 	    }
 	    catch (Exception e) {
-		System.out.println("Current Position => " + this.currentPosition);
+		//System.out.println("Current Position => " + this.currentPosition);
 		throw e;
 	    }	
 	}
@@ -248,8 +248,7 @@ public class PokemonGoState extends State {
 	
 	@Override
 	public boolean equals(Object obj) {
-
-	    final PokemonGoState other = (PokemonGoState) obj;
+		final PokemonGoState other = (PokemonGoState) obj;
 	    
 	    if (!this.currentPosition.equals(other.currentPosition)) {
 		return false;
