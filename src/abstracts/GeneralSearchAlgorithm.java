@@ -17,10 +17,12 @@ public abstract class GeneralSearchAlgorithm {
     public SearchNode GeneralSearch(SearchProblem problem,
 	    QueuingFunction<SearchNode> queuingFunction) {
 	this.problem = problem;
-	PokemonGoSearchProblem pokeProblem = (PokemonGoSearchProblem) this.problem;
 	ArrayList<SearchNode> nodes = new ArrayList<SearchNode>();
-	SearchNode initialNode = pokeProblem.createNodeFromState(problem.getInitialState(), null);
+	SearchNode initialNode = this.problem.createNodeFromState(problem.getInitialState(), null);
 	nodes.add(initialNode);
+
+//	TODO: REMOVE AFTER REMOVING PRINT STATEMENT INSIDE
+	PokemonGoSearchProblem pokeProblem = (PokemonGoSearchProblem) this.problem;
 
 	while (true) {
 
@@ -58,10 +60,10 @@ public abstract class GeneralSearchAlgorithm {
 	    SearchNode newNode = operation.apply(node, this.enviroment);
 	    if (newNode != null) {
 		State nodeState = newNode.getState();
-		if (!this.problem.getStateSpace().contains(nodeState)) {
-		    this.problem.addToStateSpace(nodeState);
+		boolean undiscoveredState = this.problem.addToStateSpace(nodeState);
+		if (undiscoveredState == true) {
+		    expandedNodes.add(newNode);  
 		}
-		expandedNodes.add(newNode);
 	    }
 	}
 

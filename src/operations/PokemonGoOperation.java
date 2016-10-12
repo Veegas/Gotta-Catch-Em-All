@@ -1,5 +1,7 @@
 package operations;
 
+import abstracts.SearchNode;
+import abstracts.State;
 import search.PokemonGoSearchNode;
 import search.PokemonGoSearchProblem;
 import search.PokemonGoState;
@@ -23,5 +25,5 @@ public class PokemonGoOperation {
     public void setProblem(PokemonGoSearchProblem problem) {
 	this.problem = problem;
     }
-       
+    
 }

@@ -11,6 +11,12 @@ public class Position {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Position(Position oldPosition) {
+	    super();
+	    this.x = oldPosition.x;
+	    this.y = oldPosition.y;
+	}
 
 	//Setters and Getters
 	public int getX() {

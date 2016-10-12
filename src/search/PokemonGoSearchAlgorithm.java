@@ -19,6 +19,7 @@ public class PokemonGoSearchAlgorithm extends GeneralSearchAlgorithm {
 	super.GeneralSearch(problem, bfs);
 	
     }
+    
 
     
 }

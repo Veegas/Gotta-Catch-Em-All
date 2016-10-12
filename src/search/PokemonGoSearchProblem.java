@@ -62,9 +62,6 @@ public class PokemonGoSearchProblem extends SearchProblem {
     }
 
 
-
-
-
     public Maze getMaze() {
         return maze;
     }
@@ -75,10 +72,12 @@ public class PokemonGoSearchProblem extends SearchProblem {
         this.maze = maze;
     }
     
-    public PokemonGoSearchNode createNodeFromState(State newState, PokemonGoSearchNode parentNode) {
-	PokemonGoState newPokeState = (PokemonGoState) newState;
+    public SearchNode createNodeFromState(State newState, SearchNode parentNode) {
+	PokemonGoSearchNode pokeParentNode = (PokemonGoSearchNode) parentNode;
+	PokemonGoState pokeNewState = (PokemonGoState) newState;
+	
 	if (newState != null) {
-	    PokemonGoSearchNode newNode = new PokemonGoSearchNode(newPokeState, parentNode);
+	    PokemonGoSearchNode newNode = new PokemonGoSearchNode(pokeNewState, pokeParentNode);
 	    return newNode;    
 	} else {
 	    return null;

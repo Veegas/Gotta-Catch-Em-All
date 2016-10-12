@@ -11,19 +11,18 @@ import mazeGenerator.Maze;
 
 //represents our agent's state in the Gotta Catch'em all instance
 public class PokemonGoState extends State {
-	public PokemonGoState() {
-	super();
-	this.currentPosition = new Position(0, 0);
-	this.orientation = Orientation.UP;
-	this.stepsMoved = 0;
-	this.pokemonsLeft = new ArrayList<Pokemon>();
-    }
-
-	private Position currentPosition;
+    private Position currentPosition;
 	private int stepsMoved;
 	private ArrayList<Pokemon> pokemonsLeft;
 	private Orientation orientation;
 	
+        public PokemonGoState() {
+    	super();
+    	this.currentPosition = new Position(0, 0);
+    	this.orientation = Orientation.UP;
+    	this.stepsMoved = 0;
+    	this.pokemonsLeft = new ArrayList<Pokemon>();
+        }
 	
 	//Constructor
 	public PokemonGoState(Position currentPosition, int stepsMoved, ArrayList<Pokemon> pokemonsLeft,
@@ -35,11 +34,14 @@ public class PokemonGoState extends State {
 		this.orientation = orientation;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public PokemonGoState(PokemonGoState oldState) {
-	    this.currentPosition = oldState.currentPosition;
+	    super();
+	    this.currentPosition = new Position(oldState.currentPosition);
 	    this.orientation = oldState.orientation;
 	    this.stepsMoved = oldState.stepsMoved;
-	    this.pokemonsLeft = oldState.pokemonsLeft;
+	    this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
+	    int x = 1;
 	}
 
 	//Setters and Getters
@@ -181,7 +183,8 @@ public class PokemonGoState extends State {
         	    case LEFT: newState.orientation = Orientation.DOWN; break;
         	    case RIGHT: newState.orientation = Orientation.UP; break;
 	    }
-	    return newState;	}
+	    return newState;	
+	 }
 	
 	public PokemonGoState rotateRight(Environment environment) {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
@@ -245,12 +248,7 @@ public class PokemonGoState extends State {
 	
 	@Override
 	public boolean equals(Object obj) {
-	    if (obj == null) {
-	        return false;
-	    }
-	    if (!PokemonGoState.class.isAssignableFrom(obj.getClass())) {
-	        return false;
-	    }
+
 	    final PokemonGoState other = (PokemonGoState) obj;
 	    
 	    if (!this.currentPosition.equals(other.currentPosition)) {
@@ -265,7 +263,7 @@ public class PokemonGoState extends State {
 //		return false;
 //	    }
 	    
-	    if (this.orientation != other.orientation) {
+	    if (!this.orientation.equals(other.orientation)) {
 		return false;
 	    }
 		
