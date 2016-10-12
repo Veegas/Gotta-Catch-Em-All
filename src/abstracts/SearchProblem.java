@@ -7,7 +7,7 @@ import search.PokemonGoSearchNode;
 import search.PokemonGoState;
 
 //represents any abstract Search Problem
-public abstract class SearchProblem{
+public abstract class SearchProblem {
 	private ArrayList<State> stateSpace;
 	private State initialState;
 	private ArrayList<Operation<? extends SearchNode>> operations;
@@ -20,9 +20,9 @@ public abstract class SearchProblem{
 		this.operations = operations;
 		this.stateSpace.add(initialState);
 	}
-	
+
 	public SearchProblem() {
-	  this.stateSpace = new ArrayList<State>();  
+		this.stateSpace = new ArrayList<State>();
 	}
 
 	// Abstract methods, any subclasses should implement.
@@ -41,7 +41,7 @@ public abstract class SearchProblem{
 		this.stateSpace.clear();
 		this.stateSpace.addAll(stateSpace);
 	}
-	
+
 	public boolean addToStateSpace(State state) {
 	    if (!this.stateSpace.contains(state)) {
 		this.stateSpace.add(state);
@@ -61,14 +61,13 @@ public abstract class SearchProblem{
 	}
 
 	public ArrayList<Operation<? extends SearchNode>> getOperations() {
-	    return operations;
+		return operations;
 	}
 
 	public void setOperations(ArrayList<Operation<? extends SearchNode>> operations) {
-	    this.operations = operations;
+		this.operations = operations;
 	}
-	
-	public abstract SearchNode createNodeFromState(State newState, SearchNode parentNode);
 
+	public abstract SearchNode createNodeFromState(State newState, SearchNode parentNode);
 
 }

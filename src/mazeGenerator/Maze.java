@@ -23,7 +23,7 @@ public class Maze {
 		this.setWidth(x);
 		this.setHeight(y);
 		
-		System.out.println(this.width + " x  " + this.height);
+		//System.out.println(this.width + " x  " + this.height);
 		maze = new Cell[x][y];
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -157,7 +157,7 @@ public class Maze {
 		Random random = new Random();
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
-		System.out.println(x + " " + y + " ");
+		//System.out.println(x + " " + y + " ");
 		generateMaze(10, 10);
 	}
 

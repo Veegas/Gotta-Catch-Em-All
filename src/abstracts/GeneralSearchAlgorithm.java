@@ -7,12 +7,12 @@ import search.PokemonGoSearchProblem;
 import search.PokemonGoState;
 
 public abstract class GeneralSearchAlgorithm {
-    Environment enviroment;
+    Environment environment;
     SearchProblem problem;
     private int expandedNodesNumber;
     
-    public GeneralSearchAlgorithm(Environment enviroment) {
-	this.enviroment = enviroment;
+    public GeneralSearchAlgorithm(Environment environment) {
+	this.environment = environment;
 	this.setExpandedNodesNumber(0);
     }
     
@@ -51,28 +51,28 @@ public abstract class GeneralSearchAlgorithm {
 		nodes = queuingFunction.enqueue(toBeAddedNode, nodes);
 	    }
 	}
-
     }
 
-    public ArrayList<? extends SearchNode> expandNode(SearchNode node,
-	    ArrayList<Operation<? extends  SearchNode>> operations) {
-	ArrayList<SearchNode> expandedNodes = new ArrayList<SearchNode>();
 
-	for (Operation<? extends SearchNode> operation : operations) {
-	    SearchNode newNode = operation.apply(node, this.enviroment);
-	    if (newNode != null) {
-		State nodeState = newNode.getState();
-		boolean undiscoveredState = this.problem.addToStateSpace(nodeState);
-		if (undiscoveredState == true) {
-		    expandedNodes.add(newNode); 
-		    this.setExpandedNodesNumber(
-			this.getExpandedNodesNumber() + 1);
+	public ArrayList<? extends SearchNode> expandNode(SearchNode node,
+			ArrayList<Operation<? extends SearchNode>> operations) {
+		ArrayList<SearchNode> expandedNodes = new ArrayList<SearchNode>();
+
+
+		for (Operation<? extends SearchNode> operation : operations) {
+		    SearchNode newNode = operation.apply(node, this.environment);
+		    if (newNode != null) {
+			State nodeState = newNode.getState();
+			boolean undiscoveredState = this.problem.addToStateSpace(nodeState);
+			if (undiscoveredState == true) {
+			    expandedNodes.add(newNode); 
+			    this.setExpandedNodesNumber(this.getExpandedNodesNumber() + 1);
+			}
+		    }
 		}
-	    }
-	}
 
-	return expandedNodes;
-    }
+		return expandedNodes;
+	}
 
     public int getExpandedNodesNumber() {
 	return expandedNodesNumber;
