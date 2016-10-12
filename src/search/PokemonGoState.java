@@ -118,11 +118,11 @@ public class PokemonGoState extends State {
 	    	   }
 	    	    break;
 	    	default: break;
-	    }
+		}
 	    if (nextCell != null) {
-		if (pickUpPokemon(nextCell) == true) {
-		    newState.pokemonsLeft = this.pokemonsLeft;
-		};
+			if (pickUpPokemon(nextCell) == true) {
+			    newState.pokemonsLeft = this.pokemonsLeft;
+			}
 	    }
 	    newState.stepsMoved++;
 	    	    

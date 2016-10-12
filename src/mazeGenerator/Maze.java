@@ -140,6 +140,7 @@ public class Maze {
 		for (int i = 0; i < maze[0].length; i++) {
 			System.out.print("_ ");
 		}
+		System.out.println();
 	}
 	
 	public boolean removePokemon(Pokemon p) {

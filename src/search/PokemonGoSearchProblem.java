@@ -49,8 +49,8 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	public boolean goalTest(State state) {
 		PokemonGoState pokeState = (PokemonGoState) state;
 		//System.out.println(pokeState.getPokemonsLeft().size());
-		if (pokeState.getStepsMoved() >= this.StepsToMove && 
-				pokeState.getPokemonsLeft().isEmpty() && 
+		if (//pokeState.getStepsMoved() >= this.StepsToMove && 
+				//pokeState.getPokemonsLeft().isEmpty() && 
 					this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
 						&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
 			System.out.println(this.StepsToMove);

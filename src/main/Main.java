@@ -32,7 +32,7 @@ public class Main {
 	QueuingFunction<SearchNode> bfs = new BreadthFirst();
 	QueuingFunction<SearchNode> dfs = new DepthFirst();
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
-	searchAlgorithm.GeneralSearch(pokeSearch, dfs);
+	searchAlgorithm.GeneralSearch(pokeSearch, bfs);
 	maze.drawMaze();
 	
 	
