@@ -14,9 +14,9 @@ public class PokemonGoSearchAlgorithm extends GeneralSearchAlgorithm {
     }
 
     public void GeneralSearch(PokemonGoSearchProblem pokeSearch,
-	    QueuingFunction<SearchNode> bfs) {
+	    QueuingFunction<SearchNode> strategy) {
 	SearchProblem problem = (SearchProblem) pokeSearch;
-	super.GeneralSearch(problem, bfs);
+	super.GeneralSearch(problem, strategy);
 	
     }
     
