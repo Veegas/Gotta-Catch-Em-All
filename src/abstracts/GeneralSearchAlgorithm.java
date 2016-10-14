@@ -41,6 +41,9 @@ public abstract class GeneralSearchAlgorithm {
 //		System.out.println("[ " + state.getCurrentPosition().getX() + ", " + state.getCurrentPosition().getY() + "] => " 
 //				+ state.getOrientation()  + " :: Target => " + pokeProblem.getMaze().getEnd().getPosition());
 	   }
+//	    pokeProblem.getMaze().setCurrentCell(pokeProblem.getMaze().getMazeCell(state.getCurrentPosition().getX(), state.getCurrentPosition().getY()));
+//	    pokeProblem.getMaze().drawMaze();
+//	    System.out.println(state);
 	    
 	    if (this.problem.goalTest(currentNode.getState())) {
 	    	System.out.println("Passed Goal Test");

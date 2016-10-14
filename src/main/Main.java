@@ -27,8 +27,8 @@ public class Main {
 	maze.genMaze();
 	
 	search(maze, "bfs", true);
-	//search(maze, "dfs", true);
-	//search(maze, "ufc", true);
+//	search(maze, "dfs", true);
+//	search(maze, "ufc", true);
 	
     }
     
@@ -37,6 +37,9 @@ public class Main {
 	Random random = new Random();
 	int x = random.ints(0,10).findFirst().getAsInt();
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
+	
+	System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
+	
 	
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
 
@@ -56,15 +59,20 @@ public class Main {
 	
 	SearchNode answer = searchAlgorithm.GeneralSearch(pokeSearch, toBeUsed);
 	
-	System.out.println();
-	System.out.println("________________SOLUTION______________");
-	printPathToRoot(answer);
-	System.out.println();
-	System.out.println("___________________________________\n");
+	
+	if (answer == null) {
+	    System.out.println("No Solution found");
+	} else {
+	    System.out.println();
+	    System.out.println("________________SOLUTION______________"); 
+	    printPathToRoot(answer);
+	    System.out.println();
+	    maze.drawMaze();
+	    System.out.println("___________________________________");
+	}
+	
 	System.out.println("Number Of Expanded Nodes: " + searchAlgorithm.getExpandedNodesNumber());
 	System.out.println();
-	
-	maze.drawMaze();
     }
     
     public static void printPathToRoot(SearchNode answer) {

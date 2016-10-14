@@ -105,5 +105,39 @@ public class Cell {
 	public Position getPosition() {
 	    return new Position(this.x, this.y);
 	}
+	
+	public String toString() {
+	    return "[y: "+ this.y + ", x: " + this.x + "] > " + this.cellStatus(null) ;
+	}
+	
+	public String cellStatus(Cell currentCell) {
+		String status = "";
+	    	if (this.y == 0) {
+			status +=("|");
+		}
+		if (this.isStart()) {
+			status +=("S ");
+		} 
+		else if (this.equals(currentCell)) {
+		    status +=("A ");
+		}
+		else {
+			if (this.isEnd()) {
+				status +=("E ");
+			} else {
+				if (this.isBlocked()) {
+					status +=("* ");
+				} else {
+					if (this.hasPokemon()) {
+						status +=("P ");
+					} else {
+						status +=("o ");
+					}
+				}
+			}
+		}
+		return status;
+
+	}
 
 }
