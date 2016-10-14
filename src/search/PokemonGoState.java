@@ -82,8 +82,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
-//	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
-//	    TODO: Check for logic in maze;
+
 	    Cell nextCell = null;
 	    switch (this.orientation) {
 	    	case UP:
@@ -251,30 +250,51 @@ public class PokemonGoState extends State {
 	    return false;
 	}
 	
+
+	
+	
+
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((currentPosition == null) ? 0
+		    : currentPosition.hashCode());
+	    result = prime * result
+		    + ((orientation == null) ? 0 : orientation.hashCode());
+	    result = prime * result
+		    + ((pokemonsLeft == null) ? 0 : pokemonsLeft.hashCode());
+//	    result = prime * result + stepsMoved;
+	    return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		final PokemonGoState other = (PokemonGoState) obj;
-	    
-	    if (!this.currentPosition.equals(other.currentPosition)) {
+	    if (this == obj)
+		return true;
+	    if (obj == null)
 		return false;
-	    }
-	    
-//	    if (this.stepsMoved != other.stepsMoved) {
+	    if (getClass() != obj.getClass())
+		return false;
+	    PokemonGoState other = (PokemonGoState) obj;
+	    if (currentPosition == null) {
+		if (other.currentPosition != null)
+		    return false;
+	    } else if (!currentPosition.equals(other.currentPosition))
+		return false;
+	    if (orientation != other.orientation)
+		return false;
+	    if (pokemonsLeft == null) {
+		if (other.pokemonsLeft != null)
+		    return false;
+	    } else if (!pokemonsLeft.equals(other.pokemonsLeft))
+		return false;
+//	    if (stepsMoved != other.stepsMoved)
 //		return false;
-//	    }
-//	    
-	    if (!this.pokemonsLeft.equals(other.pokemonsLeft)) {
-		return false;
-	    }
-	    
-	    if (!this.orientation.equals(other.orientation)) {
-		return false;
-	    }
-		
 	    return true;
 	}
-	
+
 	public String toString() {
-	    return this.getCurrentPosition() + " => "  + this.getOrientation() + " - Steps: " + stepsMoved + " -  Pokemons Left: "  + pokemonsLeft.size();
+	    return  this.getCurrentPosition() + " => "  + this.getOrientation() + " - Steps: " + stepsMoved + " -  Pokemons Left: "  + pokemonsLeft.size();
 	}
 }

@@ -42,6 +42,8 @@ public class Maze {
 		Start = new Cell(getRandomBoolean(), random.ints(0, x).findFirst().getAsInt(),
 				random.ints(0, y).findFirst().getAsInt(), null);
 		maze[Start.getX()][Start.getY()] = Start;
+		
+		
 		Start.setStart(true);
 		currentCell = Start;
 		getNeighborCells(Start);
@@ -123,7 +125,7 @@ public class Maze {
 		for (int i = 0; i < maze.length; i++) {
 			System.out.println();
 			for (int j = 0; j < maze[i].length; j++) {
-			   System.out.print(maze[i][j].cellStatus(currentCell));
+			   System.out.print(maze[j][i].cellStatus(currentCell));
 			}
 		}
 		System.out.println();
@@ -164,7 +166,7 @@ public class Maze {
 	}
 	
 	public Cell getMazeCell(int x, int y) {
-	    return maze[y][x];
+	    return maze[x][y];
 	}
 
 	public void setMaze(Cell[][] maze) {
