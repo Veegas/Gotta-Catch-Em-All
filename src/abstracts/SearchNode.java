@@ -43,5 +43,46 @@ public class SearchNode {
     public String toString() {
 	return state.toString() + " *" + this.cost + "* ";
     }
+    
+    public void printPathToRoot() {
+	String path = "************************\n";
+	SearchNode currentNode = this;
+	while (currentNode != null) {
+	    path = currentNode.toString() + "\n" + path;
+	    currentNode = currentNode.parent;
+	}
+	path = "************************\n" + path;
+	System.out.println(path);
+    } 
+    
+    public boolean foundInAncestors() {
+	SearchNode parent = this.parent;
+	while (parent != null) {
+	    if (parent.state.equals(this.state)) {
+		return true;
+	    }
+	    parent = parent.parent;
+	}
+	return false;
+    }
+    
+    public boolean foundAsParent() {
+	return parent.state.equals(this.state);
+    }
+    
+    public boolean foundInLimitedAncestors(int n) {
+	SearchNode parent = this.parent;
+	while (parent != null) {
+	    if (n <= 0) {
+	       return false;
+	   } else {
+	       n--;
+	       if (parent.state.equals(this.state))
+		   return true;
+	   }
+	    parent = this.parent;
+	}
+	return false;
+    }
 
 }

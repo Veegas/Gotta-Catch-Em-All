@@ -45,6 +45,7 @@ public class Maze {
 		
 		
 		Start.setStart(true);
+		Start.setBlocked(false);
 		currentCell = Start;
 		getNeighborCells(Start);
 		Cell last = null;
@@ -152,7 +153,7 @@ public class Maze {
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
 		//System.out.println(x + " " + y + " ");
-		generateMaze(6, 6);
+		generateMaze(4, 4);
 	}
 
 	public static void main(String[] args) {

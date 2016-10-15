@@ -35,6 +35,7 @@ public abstract class GeneralSearchAlgorithm {
 	    }
 	    
 	    SearchNode currentNode = nodes.remove(0);
+	    expandedNodesNumber++;
 	    
 	    PokemonGoState state = (PokemonGoState) currentNode.getState();
 	    if (state!= null) {
@@ -42,8 +43,10 @@ public abstract class GeneralSearchAlgorithm {
 //				+ state.getOrientation()  + " :: Target => " + pokeProblem.getMaze().getEnd().getPosition());
 	   }
 //	    pokeProblem.getMaze().setCurrentCell(pokeProblem.getMaze().getMazeCell(state.getCurrentPosition().getX(), state.getCurrentPosition().getY()));
-//	    pokeProblem.getMaze().drawMaze();
 //	    System.out.println(state);
+	    currentNode.printPathToRoot();
+	    pokeProblem.getMaze().drawMaze();
+	    
 	    
 	    if (this.problem.goalTest(currentNode.getState())) {
 	    	System.out.println("Passed Goal Test");
@@ -57,6 +60,16 @@ public abstract class GeneralSearchAlgorithm {
 	    }
 	}
     }
+    
+//    public SearchNode DepthLimitedSearch(SearchProblem problem, int depth) {
+//	this.problem = problem;
+//	ArrayList<SearchNode> nodes = new ArrayList<SearchNode>();
+//	SearchNode initialNode = this.problem.createNodeFromState(problem.getInitialState(), null);
+//	nodes.add(initialNode);
+//	
+//	
+//    }
+    
 
 	public ArrayList<? extends SearchNode> expandNode(SearchNode node,
 			ArrayList<Operation<? extends SearchNode>> operations) {
@@ -68,15 +81,17 @@ public abstract class GeneralSearchAlgorithm {
 		    if (newNode != null) {
 			State nodeState = newNode.getState();
 			boolean undiscoveredState = this.problem.addToStateSpace(nodeState);
-			if (undiscoveredState == true) {
+			
+			if (undiscoveredState ==  true) {
 			    expandedNodes.add(newNode); 
-			    this.setExpandedNodesNumber(this.getExpandedNodesNumber() + 1);
 			}
 		    }
 		}
 
 		return expandedNodes;
 	}
+	
+	
 
     public int getExpandedNodesNumber() {
 	return expandedNodesNumber;

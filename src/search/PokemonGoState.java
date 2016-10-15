@@ -119,10 +119,9 @@ public class PokemonGoState extends State {
 	    	    break;
 	    	default: break;
 		}
+	    
 	    if (nextCell != null) {
-			if (newState.pickUpPokemon(nextCell, env.maze) == true) {
-//			    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
-			}
+		newState.pickUpPokemon(nextCell, env.maze);
 	    }
 	    newState.stepsMoved++;
 
@@ -242,8 +241,6 @@ public class PokemonGoState extends State {
 	public boolean pickUpPokemon(Cell cell, Maze maze) {
 	    Pokemon cellPokemon = cell.getPokemon();
 	    if (cellPokemon != null) {
-//		cell.removePokemon();
-//		maze.getPokemonsGenerated().remove(cellPokemon);
 		this.pokemonsLeft.remove(cellPokemon);
 		return true;
 	    }
