@@ -34,7 +34,7 @@ public class MoveForwardOperation extends PokemonGoOperation implements Operatio
 	}
 	
 	SearchNode newNode = this.getProblem().createNodeFromState(newState, currentNode); 
-	newNode.setCost(2);
+	newNode.setCost(1);
 	
 	
 	return newNode;

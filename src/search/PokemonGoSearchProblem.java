@@ -21,7 +21,7 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	public PokemonGoSearchProblem(Maze maze, int x) {
 		super();
 		this.maze = maze;
-		PokemonGoState initialState = new PokemonGoState(maze.getStart().getPosition(), 0, maze.getPokemonsGenerated(),
+		PokemonGoState initialState = new PokemonGoState(maze.getStart().getPosition(), x, maze.getPokemonsGenerated(),
 				Orientation.DOWN);
 		ArrayList<PokemonGoState> stateSpace = new ArrayList<PokemonGoState>();
 		this.setInitialState(initialState);
@@ -58,12 +58,12 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	@Override
 	public boolean goalTest(State state) {
 		PokemonGoState pokeState = (PokemonGoState) state;
-//		if (pokeState.getStepsMoved() >= this.StepsToMove && 
-//				pokeState.getPokemonsLeft().isEmpty() && 
-//					this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
-//						&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
-//			return true;
-//		}
+		if (pokeState.getStepsLeft() == 0 && 
+				pokeState.getPokemonsLeft().isEmpty() && 
+					this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
+						&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
+			return true;
+		}
 //		
 //		if (pokeState.getPokemonsLeft().isEmpty() && 
 //			this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
@@ -75,8 +75,8 @@ public class PokemonGoSearchProblem extends SearchProblem {
 //		    return true;
 //		}
 		
-		if (pokeState.getPokemonsLeft().isEmpty())
-		    return true;
+//		if (pokeState.getPokemonsLeft().isEmpty())
+//		    return true;
 		
 		return false;
 	}

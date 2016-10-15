@@ -153,13 +153,7 @@ public class Maze {
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
 		//System.out.println(x + " " + y + " ");
-		generateMaze(4, 4);
-	}
-
-	public static void main(String[] args) {
-		Maze maze = new Maze();
-		maze.genMaze();
-
+		generateMaze(6, 6);
 	}
 
 	public Cell[][] getMaze() {

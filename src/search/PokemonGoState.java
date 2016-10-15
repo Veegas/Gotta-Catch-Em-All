@@ -12,7 +12,7 @@ import mazeGenerator.Maze;
 //represents our agent's state in the Gotta Catch'em all instance
 public class PokemonGoState extends State {
     private Position currentPosition;
-	private int stepsMoved;
+	private int stepsLeft;
 	private ArrayList<Pokemon> pokemonsLeft;
 	private Orientation orientation;
 	
@@ -20,7 +20,7 @@ public class PokemonGoState extends State {
     	super();
     	this.currentPosition = new Position(0, 0);
     	this.orientation = Orientation.UP;
-    	this.stepsMoved = 0;
+    	this.stepsLeft = 0;
     	this.pokemonsLeft = new ArrayList<Pokemon>();
         }
 	
@@ -29,7 +29,7 @@ public class PokemonGoState extends State {
 			Orientation orientation) {
 		super();
 		this.currentPosition = currentPosition;
-		this.stepsMoved = stepsMoved;
+		this.stepsLeft  = stepsMoved;
 		this.pokemonsLeft = pokemonsLeft;
 		this.orientation = orientation;
 	}
@@ -39,9 +39,8 @@ public class PokemonGoState extends State {
 	    super();
 	    this.currentPosition = new Position(oldState.currentPosition);
 	    this.orientation = oldState.orientation;
-	    this.stepsMoved = oldState.stepsMoved;
+	    this.stepsLeft  = oldState.stepsLeft;
 	    this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
-	    int x = 1;
 	}
 
 	//Setters and Getters
@@ -53,13 +52,6 @@ public class PokemonGoState extends State {
 		this.currentPosition = currentPosition;
 	}
 
-	public int getStepsMoved() {
-		return stepsMoved;
-	}
-
-	public void setStepsMoved(int stepsMoved) {
-		this.stepsMoved = stepsMoved;
-	}
 
 	public ArrayList<Pokemon> getPokemonsLeft() {
 		return pokemonsLeft;
@@ -123,7 +115,9 @@ public class PokemonGoState extends State {
 	    if (nextCell != null) {
 		newState.pickUpPokemon(nextCell, env.maze);
 	    }
-	    newState.stepsMoved++;
+	    if (newState.stepsLeft > 0) {
+		newState.stepsLeft --;
+	    }
 
 	    	    
 	    return newState;
@@ -286,12 +280,24 @@ public class PokemonGoState extends State {
 		    return false;
 	    } else if (!pokemonsLeft.equals(other.pokemonsLeft))
 		return false;
-//	    if (stepsMoved != other.stepsMoved)
-//		return false;
+	    
+	    if (stepsLeft > 0) {
+		if (stepsLeft != other.stepsLeft) {
+		    return false;
+		}
+	    }
 	    return true;
 	}
 
 	public String toString() {
-	    return  this.getCurrentPosition() + " => "  + this.getOrientation() + " - Steps: " + stepsMoved + " -  Pokemons Left: "  + pokemonsLeft.size();
+	    return  this.getCurrentPosition() + " => "  + this.getOrientation() + " - Steps Left: " + stepsLeft + " -  Pokemons Left: "  + pokemonsLeft.size();
+	}
+
+	public int getStepsLeft() {
+	    return stepsLeft;
+	}
+
+	public void setStepsLeft(int stepsLeft) {
+	    this.stepsLeft = stepsLeft;
 	}
 }

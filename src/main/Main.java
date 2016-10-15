@@ -26,16 +26,16 @@ public class Main {
 	Maze maze = new Maze();
 	maze.genMaze();
 	
-	search(maze, "bfs", true);
+//	search(maze, "bfs", true);
 //	search(maze, "dfs", true);
-//	search(maze, "ufc", true);
+	search(maze, "ufc", true);
 	
     }
     
     public static void search(Maze maze, String strategy, boolean visualize) {
 	PokemonGoEnvironment assumedEnviroment= new PokemonGoEnvironment(maze);
 	Random random = new Random();
-	int x = random.ints(0,10).findFirst().getAsInt();
+	int x = random.ints(0, maze.getHeight() * maze.getWidth()).findFirst().getAsInt();
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
 	
 	System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
@@ -65,7 +65,7 @@ public class Main {
 	} else {
 	    System.out.println();
 	    System.out.println("________________SOLUTION______________"); 
-	    printPathToRoot(answer);
+	    answer.printPathToRoot();
 	    System.out.println();
 	    maze.drawMaze();
 	    System.out.println("___________________________________");
