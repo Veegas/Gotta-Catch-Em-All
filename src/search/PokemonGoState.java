@@ -12,7 +12,7 @@ import mazeGenerator.Maze;
 //represents our agent's state in the Gotta Catch'em all instance
 public class PokemonGoState extends State {
     private Position currentPosition;
-	private int stepsMoved;
+	private int stepsLeft;
 	private ArrayList<Pokemon> pokemonsLeft;
 	private Orientation orientation;
 	
@@ -20,7 +20,7 @@ public class PokemonGoState extends State {
     	super();
     	this.currentPosition = new Position(0, 0);
     	this.orientation = Orientation.UP;
-    	this.stepsMoved = 0;
+    	this.stepsLeft = 0;
     	this.pokemonsLeft = new ArrayList<Pokemon>();
         }
 	
@@ -29,7 +29,7 @@ public class PokemonGoState extends State {
 			Orientation orientation) {
 		super();
 		this.currentPosition = currentPosition;
-		this.stepsMoved = stepsMoved;
+		this.stepsLeft  = stepsMoved;
 		this.pokemonsLeft = pokemonsLeft;
 		this.orientation = orientation;
 	}
@@ -39,9 +39,8 @@ public class PokemonGoState extends State {
 	    super();
 	    this.currentPosition = new Position(oldState.currentPosition);
 	    this.orientation = oldState.orientation;
-	    this.stepsMoved = oldState.stepsMoved;
-	    //this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
-	    int x = 1;
+	    this.stepsLeft  = oldState.stepsLeft;
+	    this.pokemonsLeft = (ArrayList<Pokemon>) oldState.pokemonsLeft.clone();
 	}
 
 	//Setters and Getters
@@ -53,13 +52,6 @@ public class PokemonGoState extends State {
 		this.currentPosition = currentPosition;
 	}
 
-	public int getStepsMoved() {
-		return stepsMoved;
-	}
-
-	public void setStepsMoved(int stepsMoved) {
-		this.stepsMoved = stepsMoved;
-	}
 
 	public ArrayList<Pokemon> getPokemonsLeft() {
 		return pokemonsLeft;
@@ -82,8 +74,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
-	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
-//	    TODO: Check for logic in maze;
+
 	    Cell nextCell = null;
 	    switch (this.orientation) {
 	    	case UP:
@@ -120,12 +111,14 @@ public class PokemonGoState extends State {
 	    	    break;
 	    	default: break;
 		}
+	    
 	    if (nextCell != null) {
-			if (pickUpPokemon(nextCell, env.maze) == true) {
-			    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
-			}
+		newState.pickUpPokemon(nextCell, env.maze);
 	    }
-	    newState.stepsMoved++;
+	    if (newState.stepsLeft > 0) {
+		newState.stepsLeft --;
+	    }
+
 	    	    
 	    return newState;
 	}
@@ -178,7 +171,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
-	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
+//	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 	    switch (this.orientation) {
         	    case UP: newState.orientation = Orientation.LEFT; break;
         	    case DOWN: newState.orientation = Orientation.RIGHT; break;
@@ -192,7 +185,7 @@ public class PokemonGoState extends State {
 	    PokemonGoEnvironment env = (PokemonGoEnvironment) environment;
 	    Maze maze = env.maze;
 	    PokemonGoState newState = new PokemonGoState(this);
-	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
+//	    newState.pokemonsLeft = env.maze.getPokemonsGenerated();
 	    switch (this.orientation) {
         	    case UP: newState.orientation = Orientation.RIGHT; break;
         	    case DOWN: newState.orientation = Orientation.LEFT; break;
@@ -204,7 +197,7 @@ public class PokemonGoState extends State {
 	
 	public Cell getUpwardCell(PokemonGoEnvironment env) {
 	    try {
-		return env.maze.getMaze()[this.currentPosition.getX()] [this.currentPosition.getY() - 1];
+		return env.maze.getMazeCell(this.currentPosition.getX(),this.currentPosition.getY() - 1);
 	    } catch (Exception e) {
 		//System.out.println("Current Position => " + this.currentPosition);
 		throw e;
@@ -212,7 +205,7 @@ public class PokemonGoState extends State {
 	}
 	public Cell getDownwardCell(PokemonGoEnvironment env) {
 	    try {
-		 return env.maze.getMaze()[this.currentPosition.getX()] [this.currentPosition.getY() + 1];	
+		 return env.maze.getMazeCell(this.currentPosition.getX(), this.currentPosition.getY() + 1);	
 	    }
 	
 	    catch (Exception e) {
@@ -222,7 +215,7 @@ public class PokemonGoState extends State {
 	}
 	public Cell getLeftCell(PokemonGoEnvironment env) {
 	   try {
-	       return env.maze.getMaze()[this.currentPosition.getX() - 1] [this.currentPosition.getY()];  
+	       return env.maze.getMazeCell(this.currentPosition.getX() - 1,this.currentPosition.getY());  
 	   }
 	    catch (Exception e) {
 		//System.out.println("Current Position => " + this.currentPosition);
@@ -231,7 +224,7 @@ public class PokemonGoState extends State {
 	}
 	public Cell getRightCell(PokemonGoEnvironment env) {
 	    try {
-		return env.maze.getMaze()[this.currentPosition.getX() + 1] [this.currentPosition.getY()];
+		return env.maze.getMazeCell(this.currentPosition.getX() + 1, this.currentPosition.getY());
 	    }
 	    catch (Exception e) {
 		//System.out.println("Current Position => " + this.currentPosition);
@@ -242,37 +235,69 @@ public class PokemonGoState extends State {
 	public boolean pickUpPokemon(Cell cell, Maze maze) {
 	    Pokemon cellPokemon = cell.getPokemon();
 	    if (cellPokemon != null) {
-		cell.removePokemon();
-		maze.getPokemonsGenerated().remove(cellPokemon);
+		this.pokemonsLeft.remove(cellPokemon);
 		return true;
 	    }
 	    return false;
 	}
 	
+
+	
+	
+
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((currentPosition == null) ? 0
+		    : currentPosition.hashCode());
+	    result = prime * result
+		    + ((orientation == null) ? 0 : orientation.hashCode());
+	    result = prime * result
+		    + ((pokemonsLeft == null) ? 0 : pokemonsLeft.hashCode());
+//	    result = prime * result + stepsMoved;
+	    return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
-		final PokemonGoState other = (PokemonGoState) obj;
-	    
-	    if (!this.currentPosition.equals(other.currentPosition)) {
+	    if (this == obj)
+		return true;
+	    if (obj == null)
 		return false;
-	    }
-	    
-//	    if (this.stepsMoved != other.stepsMoved) {
-//		return false;
-//	    }
-//	    
-//	    if (this.pokemonsLeft != other.pokemonsLeft) {
-//		return false;
-//	    }
-	    
-	    if (!this.orientation.equals(other.orientation)) {
+	    if (getClass() != obj.getClass())
 		return false;
+	    PokemonGoState other = (PokemonGoState) obj;
+	    if (currentPosition == null) {
+		if (other.currentPosition != null)
+		    return false;
+	    } else if (!currentPosition.equals(other.currentPosition))
+		return false;
+	    if (orientation != other.orientation)
+		return false;
+	    if (pokemonsLeft == null) {
+		if (other.pokemonsLeft != null)
+		    return false;
+	    } else if (!pokemonsLeft.equals(other.pokemonsLeft))
+		return false;
+	    
+	    if (stepsLeft > 0) {
+		if (stepsLeft != other.stepsLeft) {
+		    return false;
+		}
 	    }
-		
 	    return true;
 	}
-	
+
 	public String toString() {
-	    return this.getCurrentPosition() + "=> "  + this.getOrientation();
+	    return  this.getCurrentPosition() + " => "  + this.getOrientation() + " - Steps Left: " + stepsLeft + " -  Pokemons Left: "  + pokemonsLeft.size();
+	}
+
+	public int getStepsLeft() {
+	    return stepsLeft;
+	}
+
+	public void setStepsLeft(int stepsLeft) {
+	    this.stepsLeft = stepsLeft;
 	}
 }

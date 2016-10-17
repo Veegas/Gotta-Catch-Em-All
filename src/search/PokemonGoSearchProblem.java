@@ -21,7 +21,7 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	public PokemonGoSearchProblem(Maze maze, int x) {
 		super();
 		this.maze = maze;
-		PokemonGoState initialState = new PokemonGoState(maze.getStart().getPosition(), 0, maze.getPokemonsGenerated(),
+		PokemonGoState initialState = new PokemonGoState(maze.getStart().getPosition(), x, maze.getPokemonsGenerated(),
 				Orientation.DOWN);
 		ArrayList<PokemonGoState> stateSpace = new ArrayList<PokemonGoState>();
 		this.setInitialState(initialState);
@@ -58,13 +58,26 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	@Override
 	public boolean goalTest(State state) {
 		PokemonGoState pokeState = (PokemonGoState) state;
-		System.out.println(pokeState+" Pokemons Left: "+pokeState.getPokemonsLeft().size());
-		if (pokeState.getStepsMoved() >= this.StepsToMove && 
+		if (pokeState.getStepsLeft() == 0 && 
 				pokeState.getPokemonsLeft().isEmpty() && 
 					this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
 						&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
 			return true;
 		}
+//		
+//		if (pokeState.getPokemonsLeft().isEmpty() && 
+//			this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
+//					&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
+//		    return true;
+//		}
+////		if (this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
+//					&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
+//		    return true;
+//		}
+		
+//		if (pokeState.getPokemonsLeft().isEmpty())
+//		    return true;
+		
 		return false;
 	}
 
@@ -76,12 +89,12 @@ public class PokemonGoSearchProblem extends SearchProblem {
 		this.maze = maze;
 	}
 
-	public SearchNode createNodeFromState(State newState, SearchNode parentNode) {
+	public SearchNode createNodeFromState(State newState, SearchNode parentNode, Operation<? extends SearchNode> operation) {
 		PokemonGoSearchNode pokeParentNode = (PokemonGoSearchNode) parentNode;
 		PokemonGoState pokeNewState = (PokemonGoState) newState;
 
 		if (newState != null) {
-			PokemonGoSearchNode newNode = new PokemonGoSearchNode(pokeNewState, pokeParentNode);
+			PokemonGoSearchNode newNode = new PokemonGoSearchNode(pokeNewState, pokeParentNode, operation);
 			return newNode;
 		} else {
 			return null;
@@ -95,6 +108,7 @@ public class PokemonGoSearchProblem extends SearchProblem {
 	public void setStepsToMove(int stepsToMove) {
 		StepsToMove = stepsToMove;
 	}
+	
 	
 
 }

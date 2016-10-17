@@ -13,6 +13,15 @@ public class Maze {
 	private ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
 	private int width;
 	private int height;
+	private Cell currentCell;
+
+	public Cell getCurrentCell() {
+	    return currentCell;
+	}
+
+	public void setCurrentCell(Cell currentCell) {
+	    this.currentCell = currentCell;
+	}
 
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
@@ -33,7 +42,11 @@ public class Maze {
 		Start = new Cell(getRandomBoolean(), random.ints(0, x).findFirst().getAsInt(),
 				random.ints(0, y).findFirst().getAsInt(), null);
 		maze[Start.getX()][Start.getY()] = Start;
+		
+		
 		Start.setStart(true);
+		Start.setBlocked(false);
+		currentCell = Start;
 		getNeighborCells(Start);
 		Cell last = null;
 		while (!frontiers.isEmpty()) {
@@ -113,27 +126,7 @@ public class Maze {
 		for (int i = 0; i < maze.length; i++) {
 			System.out.println();
 			for (int j = 0; j < maze[i].length; j++) {
-				if (j == 0) {
-					System.out.print("|");
-				}
-				if (maze[i][j].isStart()) {
-					System.out.print("S ");
-				} else {
-					if (maze[i][j].isEnd()) {
-						System.out.print("E ");
-					} else {
-						if (maze[i][j].isBlocked()) {
-							System.out.print("* ");
-						} else {
-							if (maze[i][j].hasPokemon()) {
-								System.out.print("P ");
-							} else {
-								System.out.print(". ");
-							}
-						}
-					}
-				}
-
+			   System.out.print(maze[j][i].cellStatus(currentCell));
 			}
 		}
 		System.out.println();
@@ -160,17 +153,15 @@ public class Maze {
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
 		//System.out.println(x + " " + y + " ");
-		generateMaze(10, 10);
-	}
-
-	public static void main(String[] args) {
-		Maze maze = new Maze();
-		maze.genMaze();
-
+		generateMaze(5, 5);
 	}
 
 	public Cell[][] getMaze() {
 	    return maze;
+	}
+	
+	public Cell getMazeCell(int x, int y) {
+	    return maze[x][y];
 	}
 
 	public void setMaze(Cell[][] maze) {

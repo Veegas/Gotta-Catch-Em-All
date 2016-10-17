@@ -12,15 +12,13 @@ public class Cell {
 	private boolean blocked = true;
 	private boolean Start = false;
 	private boolean End = false;
-	private int x;
-	private int y;
+	private Position position;
 	private Cell parent;
 
 	// Constructor
 	public Cell(boolean hasPokemon, int x, int y, Cell parent) {
 		this.hasPokemon = hasPokemon;
-		this.x = x;
-		this.y = y;
+		this.position = new Position(x, y);
 		this.parent = parent;
 	}
 
@@ -55,19 +53,19 @@ public class Cell {
 	}
 
 	public Integer getX() {
-		return x;
+		return this.position.getX();
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.position.setX(x);
 	}
 
 	public Integer getY() {
-		return y;
+	    return this.position.getY();
 	}
 
 	public void setY(int y) {
-		this.y = y;
+	    this.position.setY(y);
 	}
 
 	public boolean isBlocked() {
@@ -103,7 +101,45 @@ public class Cell {
 	}
 	
 	public Position getPosition() {
-	    return new Position(this.x, this.y);
+	    return this.position;
+	}
+	
+	public void setPosition(Position position) {
+	    this.position = position;
+	}
+	
+	public String toString() {
+	    return this.position +  " > " + this.cellStatus(null) ;
+	}
+	
+	public String cellStatus(Cell currentCell) {
+		String status = "";
+	    	if (this.getX() == 0) {
+			status +=("|");
+		}
+		if (this.isStart()) {
+			status +=("S ");
+		} 
+		else if (this.equals(currentCell)) {
+		    status +=("A ");
+		}
+		else {
+			if (this.isEnd()) {
+				status +=("E ");
+			} else {
+				if (this.isBlocked()) {
+					status +=("* ");
+				} else {
+					if (this.hasPokemon()) {
+						status +=("P ");
+					} else {
+						status +=("o ");
+					}
+				}
+			}
+		}
+		return status;
+
 	}
 
 }

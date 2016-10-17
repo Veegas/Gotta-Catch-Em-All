@@ -38,11 +38,15 @@ public class RotateLeftOperation extends PokemonGoOperation implements Operation
 	    return null;
 	}
 	
-	SearchNode newNode = this.getProblem().createNodeFromState(newState, currentNode); 
+	SearchNode newNode = this.getProblem().createNodeFromState(newState, currentNode, this); 
 	newNode.setCost(1);
 	
 	
 	return newNode;
 	
+    }
+    
+    public String toString() {
+	return "Rotate Left";
     }
 }
