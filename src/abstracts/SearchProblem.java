@@ -49,6 +49,10 @@ public abstract class SearchProblem {
 	    }
 	    
 	}
+	
+	public void clearStateSpace() {
+	    this.stateSpace.clear();
+	}
 
 
 	public boolean addToStateSpace(State state) {
@@ -78,6 +82,6 @@ public abstract class SearchProblem {
 		this.operations = operations;
 	}
 
-	public abstract SearchNode createNodeFromState(State newState, SearchNode parentNode);
+	public abstract SearchNode createNodeFromState(State newState, SearchNode parentNode, Operation<? extends SearchNode> operation);
 
 }
