@@ -3,7 +3,7 @@ package main;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import EvaluationFunctions.GreedyH1;
+import EvaluationFunctions.Heuristic1;
 import abstracts.EvaluationFunction;
 import abstracts.GeneralSearchAlgorithm;
 import abstracts.QueuingFunction;
@@ -30,11 +30,12 @@ public class Main {
 	Maze maze = new Maze();
 	maze.genMaze();
 	
-//	search(maze, "bfs", true);
-//	search(maze, "dfs", true);
-//	search(maze, "ufc", true);
-//	search(maze, "ids", true);
-	search(maze, "greedyh1", true);
+//	search(maze, "BF", true);
+//	search(maze, "DF", true);
+//	search(maze, "UF", true);
+//	search(maze, "IF", true);
+	search(maze, "GR1", true);
+	search(maze, "AS1", true);
 	
     }
     
@@ -54,16 +55,17 @@ public class Main {
 	QueuingFunction<SearchNode> dfs = new DepthFirst();
 	QueuingFunction<SearchNode> depthLimited = new DepthLimited();
 	
-	EvaluationFunction GreedyH1= new GreedyH1();
+	EvaluationFunction H1= new Heuristic1();
 	
 	
 	SearchNode answer = null;
 	switch (strategy) {
-		case "bfs": answer = searchAlgorithm.GeneralSearch(pokeSearch, bfs); break;
-		case "ufc": answer = searchAlgorithm.GeneralSearch(pokeSearch, ufc);break;
-		case "dfs": answer = searchAlgorithm.GeneralSearch(pokeSearch, dfs);break;
-		case "ids": answer = searchAlgorithm.IterativeDeepening(pokeSearch, depthLimited);break;
-		case "greedyh1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, GreedyH1);break;
+		case "BF": answer = searchAlgorithm.GeneralSearch(pokeSearch, bfs); break;
+		case "UC": answer = searchAlgorithm.GeneralSearch(pokeSearch, ufc);break;
+		case "DF": answer = searchAlgorithm.GeneralSearch(pokeSearch, dfs);break;
+		case "ID": answer = searchAlgorithm.IterativeDeepening(pokeSearch, depthLimited);break;
+		case "GR1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "Greedy");break;
+		case "AS1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "AS");break;
 		default: answer = null;
 	}
 	

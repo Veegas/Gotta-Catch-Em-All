@@ -14,16 +14,21 @@ public class BestFirst implements QueuingFunction<SearchNode>{
     
     private SearchProblem problem;
     private EvaluationFunction eval;
+    private String Strategy;
     
-    public BestFirst(SearchProblem problem, EvaluationFunction eval) {
+    public BestFirst(SearchProblem problem, EvaluationFunction eval, String Strategy) {
 	this.problem = problem;
 	this.eval = eval;
+	this.Strategy = Strategy;
     }
     
     @Override
     public ArrayList<SearchNode> enqueue(SearchNode N,
 	    ArrayList<SearchNode> queue) {
 	N.setEvaluationCost(eval.Evaluate(problem, N));
+	if (this.Strategy.equals("AS")) {
+		N.setEvaluationCost(N.getEvaluationCost() + this.problem.pathCost(N));
+	}
 	queue.add(N);
 	
 	Collections.sort(queue, new Comparator<SearchNode>() {

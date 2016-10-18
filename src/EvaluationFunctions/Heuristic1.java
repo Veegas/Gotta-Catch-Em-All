@@ -7,7 +7,8 @@ import search.PokemonGoSearchNode;
 import search.PokemonGoSearchProblem;
 import search.Position;
 
-public class GreedyH1 implements EvaluationFunction {
+//Manhattan blocks algorithm
+public class Heuristic1 implements EvaluationFunction {
 
     @Override
     public int Evaluate(SearchProblem problem, SearchNode node) {

@@ -105,10 +105,9 @@ public abstract class GeneralSearchAlgorithm {
 	}
     }
 
-    public SearchNode BestFirstSearch(SearchProblem problem,
-	    EvaluationFunction evaluation) {
-	QueuingFunction<SearchNode> BestFirst = new BestFirst(problem,
-		evaluation);
+    public SearchNode BestFirstSearch(SearchProblem problem, EvaluationFunction evaluation,
+    		String Strategy) {
+	QueuingFunction<SearchNode> BestFirst = new BestFirst(problem, evaluation, Strategy);
 	return GeneralSearch(problem, BestFirst);
     }
 

@@ -77,7 +77,6 @@ public class Maze {
 				last = current;
 			}
 			if (frontiers.isEmpty()) {
-				System.out.println("frontiers empty");
 			    this.setEnd(maze[last.getX()][last.getY()]);
 				maze[last.getX()][last.getY()].setEnd(true);
 				maze[last.getX()][last.getY()].setBlocked(false);
