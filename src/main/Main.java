@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import EvaluationFunctions.Heuristic1;
+import EvaluationFunctions.Heuristic2;
 import abstracts.EvaluationFunction;
 import abstracts.GeneralSearchAlgorithm;
 import abstracts.QueuingFunction;
@@ -34,8 +35,10 @@ public class Main {
 //	search(maze, "DF", true);
 //	search(maze, "UF", true);
 //	search(maze, "IF", true);
-	search(maze, "GR1", true);
-	search(maze, "AS1", true);
+//	search(maze, "GR1", true);
+//	search(maze, "AS1", true);
+//	search(maze, "GR2", true);
+	search(maze, "AS2", true);
 	
     }
     
@@ -56,6 +59,7 @@ public class Main {
 	QueuingFunction<SearchNode> depthLimited = new DepthLimited();
 	
 	EvaluationFunction H1= new Heuristic1();
+	EvaluationFunction H2= new Heuristic2();
 	
 	
 	SearchNode answer = null;
@@ -66,6 +70,8 @@ public class Main {
 		case "ID": answer = searchAlgorithm.IterativeDeepening(pokeSearch, depthLimited);break;
 		case "GR1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "Greedy");break;
 		case "AS1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "AS");break;
+		case "GR2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "Greedy");break;
+		case "AS2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "AS");break;
 		default: answer = null;
 	}
 	

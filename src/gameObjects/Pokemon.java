@@ -1,15 +1,17 @@
 package gameObjects;
 
-import search.Position;
+import mazeGenerator.Cell;
 
 public class Pokemon {
 	private String name;
 	private int id;
+	private Cell cell;
 	
 	//Constructor
-	public Pokemon(String name, int id) {
+	public Pokemon(String name, int id, Cell cell) {
 		super();
 		this.name = name;
+		this.cell = cell;
 		this.id = id;
 	}
 
@@ -55,6 +57,14 @@ public class Pokemon {
 	    if (id != other.id)
 		return false;
 	    return true;
+	}
+
+	public Cell getCell() {
+		return cell;
+	}
+
+	public void setCell(Cell cell) {
+		this.cell = cell;
 	}
 	
 	

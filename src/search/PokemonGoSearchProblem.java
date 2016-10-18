@@ -64,19 +64,6 @@ public class PokemonGoSearchProblem extends SearchProblem {
 						&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
 			return true;
 		}
-//		
-//		if (pokeState.getPokemonsLeft().isEmpty() && 
-//			this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
-//					&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
-//		    return true;
-//		}
-////		if (this.maze.getEnd().getX() == pokeState.getCurrentPosition().getX()
-//					&& this.maze.getEnd().getY() == pokeState.getCurrentPosition().getY()) {
-//		    return true;
-//		}
-		
-//		if (pokeState.getPokemonsLeft().isEmpty())
-//		    return true;
 		
 		return false;
 	}

@@ -8,6 +8,7 @@ import search.PokemonGoSearchProblem;
 import search.Position;
 
 //Manhattan blocks algorithm
+//considering no walls and left pokemons are on the way to the end point
 public class Heuristic1 implements EvaluationFunction {
 
     @Override

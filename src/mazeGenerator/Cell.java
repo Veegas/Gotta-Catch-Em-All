@@ -30,7 +30,7 @@ public class Cell {
 	public void addPokemon(boolean p, ArrayList<Pokemon> Pokemons) {
 		this.hasPokemon = p;
 		if(p) {
-		    this.Pokemon = new Pokemon("Pikachu",  Pokemons.size()+1);
+		    this.Pokemon = new Pokemon("Pikachu",  Pokemons.size()+1, this);
 		    Pokemons.add(this.Pokemon);
 		}
 	}
