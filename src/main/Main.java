@@ -33,12 +33,12 @@ public class Main {
 	
 //	search(maze, "BF", true);
 //	search(maze, "DF", true);
-//	search(maze, "UF", true);
-//	search(maze, "IF", true);
+//	search(maze, "UC", true);
+//	search(maze, "ID", true);
 //	search(maze, "GR1", true);
 //	search(maze, "AS1", true);
 //	search(maze, "GR2", true);
-	search(maze, "AS2", true);
+//	search(maze, "AS2", true);
 	
     }
     
