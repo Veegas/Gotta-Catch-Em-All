@@ -39,7 +39,7 @@ public abstract class GeneralSearchAlgorithm {
 
 	    PokemonGoState state = (PokemonGoState) currentNode.getState();
 	    
-	    System.out.println(state);
+	    //System.out.println(state);
 	    // currentNode.printPathToRoot();
 	    // pokeProblem.getMaze().drawMaze();
 
@@ -75,7 +75,7 @@ public abstract class GeneralSearchAlgorithm {
 	    SearchNode currentNode = nodes.remove(0);
 	    expandedNodesNumber++;
 
-	    System.out.println(currentNode);
+//	    System.out.println(currentNode);
 	    if (this.problem.goalTest(currentNode.getState())) {
 		System.out.println("Passed Goal Test");
 		return currentNode;

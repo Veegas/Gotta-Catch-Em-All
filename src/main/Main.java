@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import EvaluationFunctions.Heuristic1;
 import EvaluationFunctions.Heuristic2;
+import EvaluationFunctions.Heuristic3;
 import abstracts.EvaluationFunction;
 import abstracts.GeneralSearchAlgorithm;
 import abstracts.QueuingFunction;
@@ -31,14 +32,16 @@ public class Main {
 	Maze maze = new Maze();
 	maze.genMaze();
 	
-//	search(maze, "BF", true);
-//	search(maze, "DF", true);
-//	search(maze, "UC", true);
-//	search(maze, "ID", true);
-//	search(maze, "GR1", true);
-//	search(maze, "AS1", true);
-//	search(maze, "GR2", true);
-//	search(maze, "AS2", true);
+	search(maze, "BF", true);
+	search(maze, "DF", true);
+	search(maze, "UC", true);
+	search(maze, "ID", true);
+	search(maze, "GR1", true);
+	search(maze, "AS1", true);
+	search(maze, "GR2", true);
+	search(maze, "AS2", true);
+	search(maze, "GR3", true);
+	search(maze, "AS3", true);
 	
     }
     
@@ -48,7 +51,7 @@ public class Main {
 	int x = random.ints(0, maze.getHeight() * maze.getWidth()).findFirst().getAsInt();
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
 	
-	System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
+	//System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
 	
 	
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
@@ -60,6 +63,7 @@ public class Main {
 	
 	EvaluationFunction H1= new Heuristic1();
 	EvaluationFunction H2= new Heuristic2();
+	EvaluationFunction H3= new Heuristic3();
 	
 	
 	SearchNode answer = null;
@@ -72,6 +76,8 @@ public class Main {
 		case "AS1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "AS");break;
 		case "GR2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "Greedy");break;
 		case "AS2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "AS");break;
+		case "GR3": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H3, "Greedy");break;
+		case "AS3": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H3, "AS");break;
 		default: answer = null;
 	}
 	
@@ -83,9 +89,9 @@ public class Main {
 	} else {
 	    System.out.println();
 	    System.out.println("________________SOLUTION______________"); 
-	    answer.printPathToRoot();
+	    //answer.printPathToRoot();
 	    System.out.println();
-	    maze.drawMaze();
+	    //maze.drawMaze();
 	    System.out.println("___________________________________");
 	}
 	

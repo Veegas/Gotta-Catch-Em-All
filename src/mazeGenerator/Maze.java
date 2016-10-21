@@ -82,7 +82,7 @@ public class Maze {
 				maze[last.getX()][last.getY()].setBlocked(false);
 			}
 		}
-		drawMaze();
+		//drawMaze();
 	}
 
 	public void getNeighborCells(Cell x) {
