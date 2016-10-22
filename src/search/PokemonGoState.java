@@ -284,13 +284,10 @@ public class PokemonGoState extends State {
 		    return false;
 	    } else if (!pokemonsLeft.equals(other.pokemonsLeft))
 		return false;
-	    
 
-	    if (stepsLeft >= 0) {
 		if (stepsLeft != other.stepsLeft) {
 		    return false;
 		}
-	    }
 	    
 
 	    

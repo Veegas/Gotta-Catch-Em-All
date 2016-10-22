@@ -155,7 +155,7 @@ public class Maze {
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
 		
-		generateMaze(8, 8);
+		generateMaze(5, 5);
 		setStepsToMove(random.ints(0, width * height).findFirst().getAsInt());
 	}
 

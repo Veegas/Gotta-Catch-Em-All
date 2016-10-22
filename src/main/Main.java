@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import EvaluationFunctions.Heuristic1;
 import EvaluationFunctions.Heuristic2;
+import EvaluationFunctions.Heuristic3;
 import abstracts.EvaluationFunction;
 import abstracts.GeneralSearchAlgorithm;
 import abstracts.QueuingFunction;
@@ -39,12 +40,12 @@ public class Main {
 	search(maze, "AS1", true);
 	search(maze, "GR2", true);
 	search(maze, "AS2", true);
-	
+	search(maze, "GR3", true);
+	search(maze, "AS3", true);
     }
     
     public static void search(Maze maze, String strategy, boolean visualize) {
 	PokemonGoEnvironment assumedEnviroment= new PokemonGoEnvironment(maze);
-//	Random random = new Random();
 	int x = maze.getStepsToMove();
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
 	
@@ -59,6 +60,7 @@ public class Main {
 	
 	EvaluationFunction H1= new Heuristic1();
 	EvaluationFunction H2= new Heuristic2();
+	EvaluationFunction H3= new Heuristic3();
 	
 	
 	SearchNode answer = null;
@@ -71,6 +73,8 @@ public class Main {
 		case "AS1": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H1, "AS");break;
 		case "GR2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "Greedy");break;
 		case "AS2": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H2, "AS");break;
+		case "GR3": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H3, "Greedy");break;
+		case "AS3": answer = searchAlgorithm.BestFirstSearch(pokeSearch, H3, "AS");break;
 		default: answer = null;
 	}
 	

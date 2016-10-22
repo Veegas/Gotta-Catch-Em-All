@@ -55,9 +55,9 @@ public abstract class SearchProblem {
 	}
 
 
-	public boolean addToStateSpace(SearchNode node) {
-	    if (this.stateSpace.containsValue((node.getState())) != true) {
-		this.stateSpace.put(node.getState(), node.getState());
+	public boolean addToStateSpace(State state) {
+	    if (this.stateSpace.containsValue((state)) != true) {
+		this.stateSpace.put(state, state);
 		return true;
 	    } else {
 		return false;
