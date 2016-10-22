@@ -31,24 +31,23 @@ public class Main {
 	Maze maze = new Maze();
 	maze.genMaze();
 	
-//	search(maze, "BF", true);
-//	search(maze, "DF", true);
-//	search(maze, "UC", true);
-//	search(maze, "ID", true);
-//	search(maze, "GR1", true);
-//	search(maze, "AS1", true);
-//	search(maze, "GR2", true);
-//	search(maze, "AS2", true);
+	search(maze, "BF", true);
+	search(maze, "DF", true);
+	search(maze, "UC", true);
+	search(maze, "ID", true);
+	search(maze, "GR1", true);
+	search(maze, "AS1", true);
+	search(maze, "GR2", true);
+	search(maze, "AS2", true);
 	
     }
     
     public static void search(Maze maze, String strategy, boolean visualize) {
 	PokemonGoEnvironment assumedEnviroment= new PokemonGoEnvironment(maze);
-	Random random = new Random();
-	int x = random.ints(0, maze.getHeight() * maze.getWidth()).findFirst().getAsInt();
+//	Random random = new Random();
+	int x = maze.getStepsToMove();
 	PokemonGoSearchProblem pokeSearch = new PokemonGoSearchProblem(maze, x);
 	
-	System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
 	
 	
 	PokemonGoSearchAlgorithm searchAlgorithm = new PokemonGoSearchAlgorithm(assumedEnviroment); 
@@ -80,17 +79,21 @@ public class Main {
 	
 	if (answer == null) {
 	    System.out.println("No Solution found");
+	    maze.drawMaze();
+	    System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
 	} else {
 	    System.out.println();
-	    System.out.println("________________SOLUTION______________"); 
+	    System.out.println("________________" + strategy.toUpperCase() +" SOLUTION_________________________"); 
 	    answer.printPathToRoot();
 	    System.out.println();
-	    maze.drawMaze();
-	    System.out.println("___________________________________");
+//	    maze.drawMaze();
+	    System.out.println();
+	    System.out.println("Steps To Move: " + pokeSearch.getStepsToMove() + ", Number Of Pokemons: " + maze.getPokemonsGenerated().size());
+	    System.out.println("Number Of Expanded Nodes: " + searchAlgorithm.getExpandedNodesNumber());
+	    System.out.println();
+	    System.out.println("__________________________________________________________________________________");
 	}
 	
-	System.out.println("Number Of Expanded Nodes: " + searchAlgorithm.getExpandedNodesNumber());
-	System.out.println();
     }
     
     public static void printPathToRoot(SearchNode answer) {

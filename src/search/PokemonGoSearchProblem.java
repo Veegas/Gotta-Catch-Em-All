@@ -87,6 +87,24 @@ public class PokemonGoSearchProblem extends SearchProblem {
 			return null;
 		}
 	}
+	
+	
+	public boolean addToStateSpace(SearchNode node) {
+	    PokemonGoState state = (PokemonGoState) node.getState();
+
+	    if (this.getStateSpace().containsValue((state)) != true) {
+		    if (state.getStepsLeft() == 0 && state.getPokemonsLeft().isEmpty()) {
+			if (node.foundInAncestors()) {
+			    return false;
+			}
+		    }
+		this.getStateSpace().put(state, state);
+		return true;
+	    } else {
+		return false;
+	    }
+
+	}
 
 	public int getStepsToMove() {
 		return StepsToMove;

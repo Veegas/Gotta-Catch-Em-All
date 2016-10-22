@@ -14,6 +14,7 @@ public class Maze {
 	private int width;
 	private int height;
 	private Cell currentCell;
+	private int stepsToMove;
 
 	public Cell getCurrentCell() {
 	    return currentCell;
@@ -31,6 +32,8 @@ public class Maze {
 		Random random = new Random();
 		this.setWidth(x);
 		this.setHeight(y);
+		
+
 		
 		//System.out.println(this.width + " x  " + this.height);
 		maze = new Cell[x][y];
@@ -151,8 +154,9 @@ public class Maze {
 		Random random = new Random();
 		int x = random.ints(1, 10).findFirst().getAsInt();
 		int y = random.ints(1, 10).findFirst().getAsInt();
-		//System.out.println(x + " " + y + " ");
-		generateMaze(5, 5);
+		
+		generateMaze(8, 8);
+		setStepsToMove(random.ints(0, width * height).findFirst().getAsInt());
 	}
 
 	public Cell[][] getMaze() {
@@ -205,6 +209,14 @@ public class Maze {
 
 	public void setEnd(Cell end) {
 	    End = end;
+	}
+
+	public int getStepsToMove() {
+	    return stepsToMove;
+	}
+
+	public void setStepsToMove(int stepsToMove) {
+	    this.stepsToMove = stepsToMove;
 	}
 
 }

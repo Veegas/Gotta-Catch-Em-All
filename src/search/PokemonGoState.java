@@ -268,24 +268,32 @@ public class PokemonGoState extends State {
 	    if (getClass() != obj.getClass())
 		return false;
 	    PokemonGoState other = (PokemonGoState) obj;
+	    
+	    
 	    if (currentPosition == null) {
 		if (other.currentPosition != null)
 		    return false;
 	    } else if (!currentPosition.equals(other.currentPosition))
 		return false;
+	    
 	    if (orientation != other.orientation)
 		return false;
+	    
 	    if (pokemonsLeft == null) {
 		if (other.pokemonsLeft != null)
 		    return false;
 	    } else if (!pokemonsLeft.equals(other.pokemonsLeft))
 		return false;
 	    
-	    if (stepsLeft > 0) {
+
+	    if (stepsLeft >= 0) {
 		if (stepsLeft != other.stepsLeft) {
 		    return false;
 		}
 	    }
+	    
+
+	    
 	    return true;
 	}
 
