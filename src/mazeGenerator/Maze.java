@@ -1,6 +1,13 @@
 package mazeGenerator;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import gameObjects.Pokemon;
@@ -13,15 +20,14 @@ public class Maze {
 	private ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
 	private int width;
 	private int height;
-	private Cell currentCell;
-
-	public Cell getCurrentCell() {
-	    return currentCell;
-	}
-
-	public void setCurrentCell(Cell currentCell) {
-	    this.currentCell = currentCell;
-	}
+	/*
+	 * private Cell currentCell;
+	 * 
+	 * public Cell getCurrentCell() { return currentCell; }
+	 * 
+	 * public void setCurrentCell(Cell currentCell) { this.currentCell =
+	 * currentCell; }
+	 */
 
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
@@ -31,22 +37,21 @@ public class Maze {
 		Random random = new Random();
 		this.setWidth(x);
 		this.setHeight(y);
-		
-		//System.out.println(this.width + " x  " + this.height);
+
+		// System.out.println(this.width + " x " + this.height);
 		maze = new Cell[x][y];
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-				maze[i][j] = new Cell(getRandomBoolean(), i, j, null);
+				maze[i][j] = new Cell(false, i, j, null);
 			}
 		}
 		Start = new Cell(getRandomBoolean(), random.ints(0, x).findFirst().getAsInt(),
 				random.ints(0, y).findFirst().getAsInt(), null);
 		maze[Start.getX()][Start.getY()] = Start;
-		
-		
+
 		Start.setStart(true);
 		Start.setBlocked(false);
-		currentCell = Start;
+		// currentCell = Start;
 		getNeighborCells(Start);
 		Cell last = null;
 		while (!frontiers.isEmpty()) {
@@ -63,7 +68,7 @@ public class Maze {
 
 					// generate pokemons randomly in unblocked cells
 					maze[current.getX()][current.getY()].addPokemon(getRandomBoolean(), PokemonsGenerated);
-					maze[opposite.getX()][opposite.getY()].addPokemon(getRandomBoolean(),  PokemonsGenerated);
+					maze[opposite.getX()][opposite.getY()].addPokemon(getRandomBoolean(), PokemonsGenerated);
 
 					// store last node in order to mark it later
 					last = opposite;
@@ -77,12 +82,12 @@ public class Maze {
 				last = current;
 			}
 			if (frontiers.isEmpty()) {
-			    this.setEnd(maze[last.getX()][last.getY()]);
+				this.setEnd(maze[last.getX()][last.getY()]);
 				maze[last.getX()][last.getY()].setEnd(true);
 				maze[last.getX()][last.getY()].setBlocked(false);
 			}
 		}
-		//drawMaze();
+		drawMaze();
 	}
 
 	public void getNeighborCells(Cell x) {
@@ -125,7 +130,7 @@ public class Maze {
 		for (int i = 0; i < maze.length; i++) {
 			System.out.println();
 			for (int j = 0; j < maze[i].length; j++) {
-			   System.out.print(maze[j][i].cellStatus(currentCell));
+				System.out.print(maze[i][j].cellStatus());
 			}
 		}
 		System.out.println();
@@ -135,76 +140,126 @@ public class Maze {
 		}
 		System.out.println();
 	}
-	
+
 	public boolean removePokemon(Pokemon p) {
-	    for(int i = 0; i < PokemonsGenerated.size(); i++) {
-		Pokemon current = this.PokemonsGenerated.get(i);
-		if (p.getId() == current.getId()) {
-		    this.PokemonsGenerated.remove(current);
-		    return true;
+		for (int i = 0; i < PokemonsGenerated.size(); i++) {
+			Pokemon current = this.PokemonsGenerated.get(i);
+			if (p.getId() == current.getId()) {
+				this.PokemonsGenerated.remove(current);
+				return true;
+			}
 		}
-	    }
-	    return false;
+		return false;
 	}
 
 	public void genMaze() {
 		Random random = new Random();
-		int x = random.ints(1, 10).findFirst().getAsInt();
-		int y = random.ints(1, 10).findFirst().getAsInt();
-		//System.out.println(x + " " + y + " ");
 		generateMaze(5, 5);
+
+		List<String> lines = new ArrayList<String>();
+
+		for (int i = 0; i < maze.length; i++) {
+
+			for (int j = 0; j < maze[i].length; j++) {
+
+				if (maze[i][j].isBlocked()) {
+
+					lines.add("Wall(" + i + "," + j + ",S0)");
+				} else {
+					if (maze[i][j].isStart()) {
+
+						lines.add("Start(" + i + "," + j + ",S0)");
+					} else {
+						if (maze[i][j].isEnd()) {
+
+							lines.add("End(" + i + "," + j + ",S0)");
+						} else {
+
+							lines.add("Passage(" + i + "," + j + ",S0)");
+						}
+					}
+
+				}
+			}
+		}
+
+		for (int i = 0; i < maze.length; i++) {
+
+			for (int j = 0; j < maze[i].length; j++) {
+
+				if (maze[i][j].hasPokemon()) {
+
+					lines.add("Pokemon(" + i + "," + j + ",S0)");
+				}
+			}
+		}
+
+		int TimeToHatch = random.ints(0, height * width).findFirst().getAsInt();
+		lines.add("EggHatch(" + TimeToHatch + ",S0)");
+
+		Path file = Paths.get("KB.txt");
+		try {
+			Files.write(file, lines, Charset.forName("UTF-8"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Cell[][] getMaze() {
-	    return maze;
+		return maze;
 	}
-	
+
 	public Cell getMazeCell(int x, int y) {
-	    return maze[x][y];
+		return maze[x][y];
 	}
 
 	public void setMaze(Cell[][] maze) {
-	    this.maze = maze;
+		this.maze = maze;
 	}
 
 	public Cell getStart() {
-	    return Start;
+		return Start;
 	}
 
 	public void setStart(Cell start) {
-	    Start = start;
+		Start = start;
 	}
 
 	public int getWidth() {
-	    return width;
+		return width;
 	}
 
 	public void setWidth(int width) {
-	    this.width = width;
+		this.width = width;
 	}
 
 	public int getHeight() {
-	    return height;
+		return height;
 	}
 
 	public void setHeight(int height) {
-	    this.height = height;
+		this.height = height;
 	}
 
 	public ArrayList<Pokemon> getPokemonsGenerated() {
-	    return PokemonsGenerated;
+		return PokemonsGenerated;
 	}
 
 	public void setPokemonsGenerated(ArrayList<Pokemon> pokemonsGenerated) {
-	    PokemonsGenerated = pokemonsGenerated;
+		PokemonsGenerated = pokemonsGenerated;
 	}
 
 	public Cell getEnd() {
-	    return End;
+		return End;
 	}
 
 	public void setEnd(Cell end) {
-	    End = end;
+		End = end;
 	}
 
+	public static void main(String[] args) {
+		Maze maze = new Maze();
+		maze.genMaze();
+	}
 }

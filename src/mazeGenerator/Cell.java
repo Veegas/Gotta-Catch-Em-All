@@ -109,20 +109,20 @@ public class Cell {
 	}
 	
 	public String toString() {
-	    return this.position +  " > " + this.cellStatus(null) ;
+	    return this.position +  " > " + this.cellStatus() ;
 	}
 	
-	public String cellStatus(Cell currentCell) {
+	public String cellStatus() {
 		String status = "";
-	    	if (this.getX() == 0) {
+	    	if (this.getY() == 0) {
 			status +=("|");
 		}
 		if (this.isStart()) {
 			status +=("S ");
 		} 
-		else if (this.equals(currentCell)) {
+		/*else if (this.equals(currentCell)) {
 		    status +=("A ");
-		}
+		}*/
 		else {
 			if (this.isEnd()) {
 				status +=("E ");
