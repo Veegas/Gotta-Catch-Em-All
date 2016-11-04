@@ -58,7 +58,6 @@ public abstract class SearchProblem {
 	public boolean addToStateSpace(State state) {
 	    if (this.stateSpace.containsValue((state)) != true) {
 		this.stateSpace.put(state, state);
-//		System.out.println("Added " + state + " to State Space");
 		return true;
 	    } else {
 		return false;

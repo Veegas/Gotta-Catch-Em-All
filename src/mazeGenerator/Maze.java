@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +19,8 @@ public class Maze {
 	private ArrayList<Pokemon> PokemonsGenerated = new ArrayList<>();
 	private int width;
 	private int height;
+	private int stepsToMove;
+
 	/*
 	 * private Cell currentCell;
 	 * 
@@ -28,7 +29,6 @@ public class Maze {
 	 * public void setCurrentCell(Cell currentCell) { this.currentCell =
 	 * currentCell; }
 	 */
-
 	public static boolean getRandomBoolean() {
 		return Math.random() < 0.5;
 	}
@@ -37,8 +37,6 @@ public class Maze {
 		Random random = new Random();
 		this.setWidth(x);
 		this.setHeight(y);
-
-		// System.out.println(this.width + " x " + this.height);
 		maze = new Cell[x][y];
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -155,6 +153,7 @@ public class Maze {
 	public void genMaze() {
 		Random random = new Random();
 		generateMaze(5, 5);
+		setStepsToMove(random.ints(0, width * height).findFirst().getAsInt());
 
 		List<String> lines = new ArrayList<String>();
 
@@ -194,8 +193,7 @@ public class Maze {
 			}
 		}
 
-		int TimeToHatch = random.ints(0, height * width).findFirst().getAsInt();
-		lines.add("EggHatch(" + TimeToHatch + ",S0)");
+		lines.add("EggHatch(" + stepsToMove + ",S0)");
 
 		Path file = Paths.get("KB.txt");
 		try {
@@ -258,8 +256,17 @@ public class Maze {
 		End = end;
 	}
 
+	public int getStepsToMove() {
+		return stepsToMove;
+	}
+
+	public void setStepsToMove(int stepsToMove) {
+		this.stepsToMove = stepsToMove;
+	}
+
 	public static void main(String[] args) {
 		Maze maze = new Maze();
 		maze.genMaze();
 	}
+
 }
