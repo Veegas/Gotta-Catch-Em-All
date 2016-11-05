@@ -163,19 +163,21 @@ public class Maze {
 
 				if (maze[i][j].isBlocked()) {
 
-					lines.add("Wall(" + i + "," + j + ",S0)");
+					lines.add("wall(" + i + "," + j + ").");
 				} else {
 					if (maze[i][j].isStart()) {
 
-						lines.add("Start(" + i + "," + j + ",S0)");
+						lines.add("start(" + i + "," + j + ").");
+						lines.add("at(" + i + "," + j + "," + stepsToMove + "," + PokemonsGenerated.size()+ ",s0).");
 					} else {
 						if (maze[i][j].isEnd()) {
 
-							lines.add("End(" + i + "," + j + ",S0)");
-						} else {
-
-							lines.add("Passage(" + i + "," + j + ",S0)");
-						}
+							lines.add("end(" + i + "," + j + ").");
+						} 
+//							else {
+//
+//							lines.add("\\+ wall(" + i + "," + j + ").");
+//						}
 					}
 
 				}
@@ -188,14 +190,14 @@ public class Maze {
 
 				if (maze[i][j].hasPokemon()) {
 
-					lines.add("Pokemon(" + i + "," + j + ",S0)");
+					lines.add("pokemon(" + i + "," + j + ",s0).");
 				}
 			}
 		}
 
-		lines.add("EggHatch(" + stepsToMove + ",S0)");
+		//lines.add("steps(" + stepsToMove + ",S0).");
 
-		Path file = Paths.get("KB.txt");
+		Path file = Paths.get("KB.pl");
 		try {
 			Files.write(file, lines, Charset.forName("UTF-8"));
 		} catch (IOException e) {
