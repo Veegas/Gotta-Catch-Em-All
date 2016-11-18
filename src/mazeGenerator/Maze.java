@@ -152,10 +152,25 @@ public class Maze {
 
 	public void genMaze() {
 		Random random = new Random();
-		generateMaze(5, 5);
-		setStepsToMove(random.ints(0, width * height).findFirst().getAsInt());
+		int x = 3;
+		int y = 3;
+		generateMaze(x,y);
+		setStepsToMove(random.ints(0, 3).findFirst().getAsInt());
 
 		List<String> lines = new ArrayList<String>();
+		int pokemonsCount = 0;
+		
+		for (int i = 0; i < maze.length; i++) {
+
+			for (int j = 0; j < maze[i].length; j++) {
+
+				if (maze[i][j].hasPokemon()) {
+
+					lines.add("pokemon(" + i + "," + j + ").");
+					pokemonsCount++;
+				}
+			}
+		}
 
 		for (int i = 0; i < maze.length; i++) {
 
@@ -168,36 +183,24 @@ public class Maze {
 					if (maze[i][j].isStart()) {
 
 						lines.add("start(" + i + "," + j + ").");
-						lines.add("at(" + i + "," + j + "," + stepsToMove + "," + PokemonsGenerated.size()+ ",s0).");
+						lines.add("at(" + i + "," + j + "," + stepsToMove + "," + pokemonsCount+ ",[],s0).");
 					} else {
 						if (maze[i][j].isEnd()) {
 
 							lines.add("end(" + i + "," + j + ").");
 						} 
-//							else {
-//
-//							lines.add("\\+ wall(" + i + "," + j + ").");
-//						}
 					}
 
 				}
 			}
 		}
-
-		for (int i = 0; i < maze.length; i++) {
-
-			for (int j = 0; j < maze[i].length; j++) {
-
-				if (maze[i][j].hasPokemon()) {
-
-					lines.add("pokemon(" + i + "," + j + ",s0).");
-				}
-			}
-		}
-
-		//lines.add("steps(" + stepsToMove + ",S0).");
-
-		Path file = Paths.get("KB.pl");
+		int xlimit = x-1;
+		int ylimit = y-1;
+		lines.add("wall(X,Y):- X < 0.");
+		lines.add("wall(X,Y):- Y < 0.");
+		lines.add("wall(X,Y):- X > "+ xlimit+".");
+		lines.add("wall(X,Y):- Y > "+ ylimit+".");
+		Path file = Paths.get("maze.pl");
 		try {
 			Files.write(file, lines, Charset.forName("UTF-8"));
 		} catch (IOException e) {

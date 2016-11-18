@@ -120,9 +120,6 @@ public class Cell {
 		if (this.isStart()) {
 			status +=("S ");
 		} 
-		/*else if (this.equals(currentCell)) {
-		    status +=("A ");
-		}*/
 		else {
 			if (this.isEnd()) {
 				status +=("E ");
